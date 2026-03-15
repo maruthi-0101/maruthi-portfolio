@@ -1,21 +1,28 @@
 import { useEffect, useState } from 'react'
 
-const WORDS = ['SOFTWARE', 'ENGINEER']
+const ROLES = [
+  { line1: 'SOFTWARE',   line2: 'ENGINEER'  },
+  { line1: 'AI',         line2: 'ENGINEER'  },
+  { line1: 'FULL-STACK', line2: 'DEVELOPER' },
+]
 
 export default function HeroText() {
-  const [index, setIndex] = useState(0)
-  const [visible, setVisible] = useState(true)
+  const [index, setIndex]     = useState(0)
+  const [phase, setPhase]     = useState<'in' | 'out'>('in')
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setVisible(false)
+    const cycle = setInterval(() => {
+      // fade out
+      setPhase('out')
       setTimeout(() => {
-        setIndex(i => (i + 1) % WORDS.length)
-        setVisible(true)
-      }, 400)
-    }, 2800)
-    return () => clearInterval(interval)
+        setIndex(i => (i + 1) % ROLES.length)
+        setPhase('in')
+      }, 480)
+    }, 3000)
+    return () => clearInterval(cycle)
   }, [])
+
+  const role = ROLES[index]
 
   return (
     <>
@@ -31,18 +38,22 @@ export default function HeroText() {
         .hero-left  { animation: heroFadeLeft  0.7s ease both; }
         .hero-right { animation: heroFadeRight 0.7s ease 0.12s both; }
 
-        .flip-word {
+        .role-line {
           display: block;
-          font-size: clamp(2.2rem, 5vw, 4.8rem);
+          font-size: clamp(2.4rem, 5.2vw, 5rem);
           font-weight: 800;
           letter-spacing: -2px;
-          line-height: 1;
+          line-height: 1.0;
           text-transform: uppercase;
-          white-space: nowrap;
-          transition: opacity 0.35s ease, transform 0.35s ease, color 0.35s ease;
+          transition: opacity 0.42s ease, transform 0.42s ease;
+          will-change: opacity, transform;
         }
-        .flip-word.in  { opacity: 1; transform: translateY(0);    color: #ffffff; }
-        .flip-word.out { opacity: 0; transform: translateY(-20px); color: #5eead4; }
+        .role-line.in  { opacity: 1; transform: translateY(0); }
+        .role-line.out { opacity: 0; transform: translateY(-18px); }
+
+        .role-line:nth-child(2) {
+          transition-delay: 0.06s;
+        }
       `}</style>
 
       {/* LEFT: Name */}
@@ -80,7 +91,7 @@ export default function HeroText() {
         </div>
       </div>
 
-      {/* RIGHT: Flip text */}
+      {/* RIGHT: Cycling role */}
       <div style={{
         position: 'fixed',
         right: '5vw',
@@ -98,13 +109,16 @@ export default function HeroText() {
             fontSize: '1.1rem',
             fontWeight: 400,
             color: '#8b9ab0',
-            marginBottom: '10px',
+            marginBottom: '8px',
             letterSpacing: '0.5px',
           }}>
-            A Software
+            I am a
           </p>
-          <span className={`flip-word ${visible ? 'in' : 'out'}`}>
-            {WORDS[index]}
+          <span className={`role-line ${phase}`} style={{ color: '#ffffff' }}>
+            {role.line1}
+          </span>
+          <span className={`role-line ${phase}`} style={{ color: '#5eead4' }}>
+            {role.line2}
           </span>
         </div>
       </div>
