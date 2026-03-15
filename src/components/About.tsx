@@ -2,45 +2,47 @@ const DEVICON = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons'
 
 const SKILL_SECTIONS = [
   {
-    label: '💻 Programming Languages',
+    label: '💻 Languages',
     icons: [
-      { name: 'Python',      src: `${DEVICON}/python/python-original.svg` },
-      { name: 'Java',        src: `${DEVICON}/java/java-original.svg` },
-      { name: 'JavaScript',  src: `${DEVICON}/javascript/javascript-original.svg` },
+      { name: 'Python',     src: `${DEVICON}/python/python-original.svg`,     invert: false },
+      { name: 'Java',       src: `${DEVICON}/java/java-original.svg`,          invert: false },
+      { name: 'JavaScript', src: `${DEVICON}/javascript/javascript-original.svg`, invert: false },
     ],
     badges: [],
   },
   {
     label: '🌐 Full-Stack',
     icons: [
-      { name: 'MongoDB',  src: `${DEVICON}/mongodb/mongodb-original.svg` },
-      { name: 'Express',  src: `${DEVICON}/express/express-original.svg` },
-      { name: 'React',    src: `${DEVICON}/react/react-original.svg` },
-      { name: 'Node.js',  src: `${DEVICON}/nodejs/nodejs-original.svg` },
-      { name: 'Django',   src: `${DEVICON}/django/django-plain.svg` },
+      { name: 'MongoDB',        src: `${DEVICON}/mongodb/mongodb-original.svg`,    invert: false },
+      { name: 'Express',        src: `${DEVICON}/express/express-original.svg`,    invert: true  },
+      { name: 'React',          src: `${DEVICON}/react/react-original.svg`,        invert: false },
+      { name: 'Node.js',        src: `${DEVICON}/nodejs/nodejs-original.svg`,      invert: false },
+      { name: 'Django',         src: `${DEVICON}/django/django-plain.svg`,         invert: true  },
+      { name: 'Java Full Stack',src: `${DEVICON}/java/java-original.svg`,          invert: false },
     ],
     badges: [],
   },
   {
-    label: '☁️ Cloud & DevTools',
+    label: '☁️ Cloud & Dev',
     icons: [
-      { name: 'AWS',    src: `${DEVICON}/amazonwebservices/amazonwebservices-original-wordmark.svg` },
-      { name: 'Git',    src: `${DEVICON}/git/git-original.svg` },
-      { name: 'GitHub', src: `${DEVICON}/github/github-original.svg` },
-      { name: 'Oracle', src: `${DEVICON}/oracle/oracle-original.svg` },
+      { name: 'AWS',    src: `${DEVICON}/amazonwebservices/amazonwebservices-plain-wordmark.svg`, invert: true  },
+      { name: 'Oracle', src: `${DEVICON}/oracle/oracle-original.svg`,   invert: false },
+      { name: 'Git',    src: `${DEVICON}/git/git-original.svg`,         invert: false },
+      { name: 'GitHub', src: `${DEVICON}/github/github-original.svg`,   invert: true  },
     ],
     badges: [],
   },
   {
-    label: '🤖 AI / ML',
+    label: '🤖 AI & ML',
     icons: [
-      { name: 'TensorFlow', src: `${DEVICON}/tensorflow/tensorflow-original.svg` },
-      { name: 'Python (AI)', src: `${DEVICON}/python/python-original.svg` },
+      { name: 'TensorFlow', src: `${DEVICON}/tensorflow/tensorflow-original.svg`, invert: false },
+      { name: 'Python',     src: `${DEVICON}/python/python-original.svg`,         invert: false },
+      { name: 'OpenCV',     src: `${DEVICON}/opencv/opencv-original.svg`,         invert: false },
     ],
-    badges: ['OpenAI / LLMs', 'FAISS', 'ChromaDB', 'RAG', 'Computer Vision', 'Prompt Engineering', 'AI Agents'],
+    badges: ['Prompt Engineering', 'RAG', 'FAISS', 'ChromaDB', 'AI Agents'],
   },
   {
-    label: '⚙️ Other Tools',
+    label: '⚙️ Other',
     icons: [],
     badges: ['Salesforce', 'Automation Anywhere'],
   },
@@ -154,25 +156,25 @@ export default function About() {
           </ul>
         </div>
 
-        {/* ── Skills — full width ── */}
+        {/* ── Skills — full width bento cubes ── */}
         <div className="about-card about-skills-full">
           <p className="card-label">TECH SKILLS</p>
-          <div className="skills-sections">
+          <div className="bento-skills">
             {SKILL_SECTIONS.map((sec) => (
-              <div key={sec.label} className="skills-category">
-                <p className="skills-cat-label">{sec.label}</p>
-                <div className="skills-row">
+              <div key={sec.label} className="bento-group">
+                <p className="bento-group-label">{sec.label}</p>
+                <div className="bento-cubes">
                   {sec.icons.map((icon) => (
-                    <div key={icon.name} className="skill-icon-item">
+                    <div key={icon.name} className="bento-cube">
                       <img
                         src={icon.src}
                         alt={icon.name}
-                        width={40}
-                        height={40}
-                        style={{ filter: icon.name === 'Express' || icon.name === 'GitHub' ? 'invert(1)' : undefined }}
+                        width={28}
+                        height={28}
+                        style={{ filter: icon.invert ? 'invert(1) brightness(0.85)' : undefined }}
                         onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
                       />
-                      <span className="skill-icon-label">{icon.name}</span>
+                      <span className="bento-cube-label">{icon.name}</span>
                     </div>
                   ))}
                   {sec.badges.map((b) => (
