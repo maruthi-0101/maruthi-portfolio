@@ -36,14 +36,6 @@ const ALL_PROJECTS = [
     github: 'https://github.com/maruthi-0101',
   },
   {
-    emoji: '🎙️',
-    title: 'NYRA AI Voice Agent',
-    description: 'Voice-enabled AI agent that interacts with users through speech input and generates intelligent, real-time responses.',
-    features: ['Real-time speech recognition', 'LLM-based response generation', 'Natural conversational flow', 'Voice output synthesis'],
-    stack: ['Python', 'Speech Recognition', 'LLM APIs'],
-    github: 'https://github.com/maruthi-0101',
-  },
-  {
     emoji: '📄',
     title: 'ATS Resume Analyzer',
     description: 'AI system that evaluates resumes against job descriptions to determine Applicant Tracking System compatibility.',
