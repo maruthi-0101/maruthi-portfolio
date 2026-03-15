@@ -1,0 +1,51 @@
+Here's the complete Replit prompt with all your exact skills and icons:
+
+---
+
+## ✅ Paste this in Replit Agent:
+
+> Replace the entire About Me section with a fully redesigned version for a Software Engineer. Use **devicons** (from `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/`) for skill icons. Layout: dark navy background, teal accent `#5eead4`, glowing cards, same font as rest of portfolio.
+>
+> **Layout (matches the bento-grid reference card style):**
+>
+> **Row 1:** Profile scan icon (left) + About Me bio text (right)
+> *"I'm Maruthi Sundar, a passionate Full-Stack and AI Engineer. I build scalable web apps and intelligent systems using modern tech. From MERN stack to LLMs and cloud platforms — I love turning complex ideas into real products."*
+>
+> **Skills Grid — show real icons + label for each:**
+>
+> 💻 **Programming Languages:**
+> Python, Java, JavaScript — use devicons
+>
+> 🌐 **Full-Stack:**
+> MongoDB, Express, React, Node.js (MERN), Django — use devicons
+>
+> ☁️ **Cloud & DevTools:**
+> AWS, Git, GitHub, Oracle Cloud (use cloud icon) — use devicons
+>
+> 🤖 **AI / ML:**
+> TensorFlow, OpenAI/LLM logo, Python (for AI) — use devicons + simple text badges for FAISS, ChromaDB, RAG, Computer Vision, Prompt Engineering, AI Agents
+>
+> ⚙️ **Other Tools:**
+> Salesforce, Automation Anywhere — use text badges with icons
+>
+> **Contact card (top right):**
+> Email: maruthisundar@gmail.com | GitHub | LinkedIn
+>
+> **Languages card (bottom right):**
+> Telugu, English, Hindi
+>
+> **Education card (bottom left):**
+> B.Tech in Computer Science | 2022–Present
+>
+> **Work Experience card (center):**
+> - 2023: Software Engineering Intern
+> - 2024: Freelance Full-Stack Developer
+> - 2025: AI/ML Project Developer
+>
+> **Style rules:**
+> - Each skill icon must be 40x40px with the real devicon image
+> - Cards have `background: rgba(255,255,255,0.05)`, `border: 1px solid rgba(94,234,212,0.2)`, `border-radius: 16px`, teal glow on hover
+> - AI/ML badges that don't have devicons: show as pill-shaped teal-outline tags
+> - Profile area: white outline person icon inside a scanning bracket frame (CSS corner brackets in teal)
+> - Section heading: "WHO I AM" (small teal label) + "ABOUT ME" (large white heading, same style as rest of site)
+> - Smooth scroll-triggered fade-in animation for all cards
