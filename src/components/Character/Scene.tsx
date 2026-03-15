@@ -49,9 +49,9 @@ function SceneInner() {
 
     // ── Scene / Camera ────────────────────────────────────────────────
     const scene  = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(22, window.innerWidth / window.innerHeight, 0.1, 1000)
-    camera.position.set(0, 13.5, 22)
-    camera.lookAt(0, 13.0, 0)
+    const camera = new THREE.PerspectiveCamera(20, window.innerWidth / window.innerHeight, 0.1, 1000)
+    camera.position.set(0, 7.5, 20)
+    camera.lookAt(0, 7.5, 0)
     camera.zoom = 1
     camera.updateProjectionMatrix()
 
@@ -92,23 +92,22 @@ function SceneInner() {
           scene.add(root)
           model = root
 
-          // Move character UP so desk/furniture goes below camera view
-          root.position.set(0, -8, 0)
+          // Push character UP so desk slides below the viewport
+          root.position.set(0, -6, 0)
           root.scale.set(1, 1, 1)
 
-          // Allowlist: only these confirmed body-part meshes stay visible
-          const BODY_MESHES = new Set([
-            'Cube006', 'Cube006_1',
-            'CAP001', 'CAP002',
-            'Ear001', 'Eyebrow', 'EYEs001', 'Face002',
-            'Hair', 'Hand',
-            'Neck', 'Pant', 'Shoe', 'Sole', 'Teeth001',
-          ])
+          // Denylist: ONLY hide exact confirmed desk/prop objects
           root.traverse((child) => {
             if ((child as THREE.Mesh).isMesh) {
-              if (!BODY_MESHES.has(child.name)) {
+              const n = child.name
+              if (
+                n === 'ground' ||
+                n === 'screenlight' ||
+                n === 'MonitorScreen' ||
+                n.startsWith('KEYS')
+              ) {
                 child.visible = false
-                console.log('[Scene] hidden:', child.name)
+                console.log('[Scene] hidden:', n)
               }
             }
           })
