@@ -1,4 +1,4 @@
-import { useEffect, Component, ReactNode } from 'react'
+import { useEffect, useRef, useState, Component, ReactNode } from 'react'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
@@ -22,44 +22,52 @@ function isWebGLAvailable(): boolean {
 }
 
 function SceneInner() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [webglOk, setWebglOk] = useState(true)
+
   useEffect(() => {
-    if (!isWebGLAvailable()) return
+    if (!isWebGLAvailable()) {
+      setWebglOk(false)
+      return
+    }
+
+    const container = containerRef.current
+    if (!container) return
 
     let renderer: THREE.WebGLRenderer
     try {
-      renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true })
-    } catch { return }
+      renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'high-performance' })
+    } catch {
+      setWebglOk(false)
+      return
+    }
 
-    renderer.setSize(window.innerWidth, window.innerHeight)
+    const W = window.innerWidth
+    const H = window.innerHeight
+    renderer.setSize(W, H)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     renderer.toneMapping = THREE.ACESFilmicToneMapping
-    renderer.toneMappingExposure = 1
-    renderer.shadowMap.enabled = true
+    renderer.toneMappingExposure = 1.2
     renderer.setClearColor(0x000000, 0)
 
-    const el = renderer.domElement
-    el.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:2;pointer-events:none;opacity:0;transition:opacity 0.8s ease'
-    document.body.appendChild(el)
+    const canvas = renderer.domElement
+    canvas.style.width  = '100%'
+    canvas.style.height = '100%'
+    container.appendChild(canvas)
 
     const scene  = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(
-      14.5,
-      window.innerWidth / window.innerHeight,
-      0.1, 1000
-    )
-    camera.position.set(0, 13.1, 24.7)
-    camera.zoom = 1.1
-    camera.updateProjectionMatrix()
+    const camera = new THREE.PerspectiveCamera(28, W / H, 0.01, 1000)
+    camera.position.set(0, 1.5, 5)
+    camera.lookAt(0, 1, 0)
 
-    scene.add(new THREE.AmbientLight(0xffffff, 2.5))
+    scene.add(new THREE.AmbientLight(0xffffff, 3.5))
 
-    const key = new THREE.DirectionalLight(0xffffff, 3.0)
-    key.position.set(-1, 2, 5)
+    const key = new THREE.DirectionalLight(0xffffff, 4.0)
+    key.position.set(-1, 3, 6)
     scene.add(key)
 
-    const rim = new THREE.DirectionalLight(0x5eead4, 2.0)
-    rim.position.set(3, 4, -2)
-    rim.castShadow = true
+    const rim = new THREE.DirectionalLight(0x5eead4, 2.5)
+    rim.position.set(4, 5, -2)
     scene.add(rim)
 
     const fill = new THREE.DirectionalLight(0xffeedd, 1.5)
@@ -73,10 +81,10 @@ function SceneInner() {
     const clock = new THREE.Clock()
     let mixer: THREE.AnimationMixer | null = null
     let model: THREE.Object3D | null = null
+    let alive = true
 
     const dracoLoader = new DRACOLoader()
     dracoLoader.setDecoderPath('/draco/')
-
     const loader = new GLTFLoader()
     loader.setDRACOLoader(dracoLoader)
 
@@ -84,30 +92,40 @@ function SceneInner() {
       loader.load(
         url,
         (gltf) => {
+          if (!alive) return
           const root = gltf.scene
-          root.position.set(0, 0, 0)
-          root.scale.set(1, 1, 1)
           scene.add(root)
           model = root
 
-          console.log('[Scene] Model loaded:', url)
+          root.updateMatrixWorld(true)
+          const box    = new THREE.Box3().setFromObject(root)
+          const size   = new THREE.Vector3()
+          const center = new THREE.Vector3()
+          box.getSize(size)
+          box.getCenter(center)
+
+          const fovRad  = (camera.fov * Math.PI) / 180
+          const camDist = (size.y / 1.4) / Math.tan(fovRad / 2)
+          const upperY  = box.max.y - size.y * 0.38
+
+          camera.position.set(center.x, upperY, center.z + camDist)
+          camera.lookAt(center.x, upperY, center.z)
+          camera.aspect = W / H
+          camera.updateProjectionMatrix()
 
           if (gltf.animations.length) {
             mixer = new THREE.AnimationMixer(root)
-            const idle = gltf.animations.find(a => /idle/i.test(a.name)) ?? gltf.animations[0]
-            mixer.clipAction(idle).play()
-            console.log('[Scene] Playing animation:', idle.name)
+            const clip = gltf.animations.find(a => /idle/i.test(a.name)) ?? gltf.animations[0]
+            mixer.clipAction(clip).play()
           }
 
-          el.style.opacity = '1'
+          container.style.opacity = '1'
+          console.log('[Scene] loaded:', url)
         },
         undefined,
         (err) => {
-          console.warn('[Scene] Failed to load', url, err)
-          if (url === CHARACTER_URL) {
-            console.log('[Scene] Trying fallback model...')
-            loadModel(FALLBACK_URL)
-          }
+          console.warn('[Scene] failed:', url, String(err))
+          if (url === CHARACTER_URL) loadModel(FALLBACK_URL)
         }
       )
     }
@@ -124,6 +142,7 @@ function SceneInner() {
 
     let raf: number
     const tick = () => {
+      if (!alive) return
       raf = requestAnimationFrame(tick)
       if (mixer) mixer.update(clock.getDelta())
       if (model) applyHeadTracking(model, mouse)
@@ -132,16 +151,53 @@ function SceneInner() {
     tick()
 
     return () => {
+      alive = false
       cancelAnimationFrame(raf)
       window.removeEventListener('mousemove', onMouse)
       window.removeEventListener('resize', onResize)
       dracoLoader.dispose()
       renderer.dispose()
-      if (document.body.contains(el)) document.body.removeChild(el)
+      if (container.contains(canvas)) container.removeChild(canvas)
     }
   }, [])
 
-  return null
+  // WebGL not supported — show the teal glow orb as fallback
+  if (!webglOk) {
+    return (
+      <div style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 2,
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+        <div style={{
+          width: '420px',
+          height: '580px',
+          borderRadius: '50%',
+          background: 'radial-gradient(ellipse at 40% 35%, rgba(94,234,212,0.22) 0%, rgba(34,211,238,0.08) 40%, transparent 70%)',
+          filter: 'blur(32px)',
+          animation: 'fadeIn 1.2s ease both',
+        }} />
+      </div>
+    )
+  }
+
+  return (
+    <div
+      ref={containerRef}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 2,
+        pointerEvents: 'none',
+        opacity: 0,
+        transition: 'opacity 1s ease',
+      }}
+    />
+  )
 }
 
 export default function Scene() {
