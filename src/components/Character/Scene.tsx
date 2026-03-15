@@ -50,7 +50,8 @@ function SceneInner() {
     // ── Scene / Camera ────────────────────────────────────────────────
     const scene  = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(14.5, window.innerWidth / window.innerHeight, 0.1, 1000)
-    camera.position.set(0, 13.1, 24.7)
+    camera.position.set(0, 14.5, 24.7)
+    camera.lookAt(0, 14.5, 0)
     camera.zoom = 1.1
     camera.updateProjectionMatrix()
 
@@ -91,8 +92,26 @@ function SceneInner() {
           scene.add(root)
           model = root
 
-          root.position.set(0, 0, 0)
+          // Move character UP so desk/furniture goes below camera view
+          root.position.set(0, -8, 0)
           root.scale.set(1, 1, 1)
+
+          // Hide desk, monitor, keyboard, chair and any flat plane objects
+          root.traverse((child) => {
+            if ((child as THREE.Mesh).isMesh) {
+              const name = child.name.toLowerCase()
+              if (
+                name.includes('desk') || name.includes('table') ||
+                name.includes('monitor') || name.includes('screen') ||
+                name.includes('computer') || name.includes('plane') ||
+                name.includes('keyboard') || name.includes('chair') ||
+                name.includes('floor') || name.includes('ground')
+              ) {
+                child.visible = false
+                console.log('[Scene] hidden:', child.name)
+              }
+            }
+          })
 
           if (gltf.animations.length) {
             mixer = new THREE.AnimationMixer(root)

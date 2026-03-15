@@ -1,0 +1,87 @@
+Testing the updated Replit portfolio after user applied the camera and character model fix prompts.
+
+Browser task: "Re-test Replit Portfolio"
+
+Tested the updated Replit portfolio. Character is now showing face/head close-up (fixed!), but a white rectangle/plane is blocking the character's face. No console errors, model loads successfully.
+
+Viewed full_page_loaded_1773558329770.png
+
+I can see the issue clearly now. The camera zoomed in BUT the **desk/monitor** from the model is filling the entire screen (it's the big white rectangle). The character's head is visible at the top center but the desk is blocking everything. Paste this fix:
+
+---
+
+> The camera is zoomed in now but the character's desk and monitor object is filling the whole screen as a giant white rectangle. Fix this:
+>
+> 1. **After loading the GLB, find and REMOVE the desk/monitor mesh** from the scene:
+> ```js
+> character.traverse((child) => {
+>   if (child.isMesh) {
+>     const name = child.name.toLowerCase()
+>     if (name.includes('desk') || name.includes('table') || 
+>         name.includes('monitor') || name.includes('screen') || 
+>         name.includes('computer') || name.includes('plane')) {
+>       child.visible = false
+>     }
+>   }
+> })
+> ```
+>
+> 2. Also **adjust camera to look UP at the face** — the face appears at top, desk at bottom:
+> ```js
+> camera.position.set(0, 14.5, 24.7)
+> camera.lookAt(0, 14.5, 0)
+> ```
+>
+> 3. If the desk can't be removed by name, **move the whole character UP** so the desk goes below the screen:
+> ```js
+> character.position.set(0, -8, 0)
+> ```
+>
+> Try option 1 first. If the white rectangle is still visible, try option 3.
+>
+> Do NOT change anything else.
+
+I can see the issue clearly now! The camera zoomed in correctly but the **desk/monitor is filling the whole screen** as a huge white rectangle. The character's head is visible at the very top.
+
+**Your site now:**
+![White rectangle/desk blocking everything](/Users/sreemaruthisundar/.gemini/antigravity/brain/cdbba0c4-317c-42d3-bb2a-6002dd1df78d/full_page_loaded_1773558329770.png)
+
+**What it should be:**
+![Reference — just face and chest](/Users/sreemaruthisundar/.gemini/antigravity/brain/cdbba0c4-317c-42d3-bb2a-6002dd1df78d/landing_page_full_1773557940783.png)
+
+---
+
+## ✅ Paste this fix in Replit Agent:
+
+> The desk/monitor from the 3D model is showing as a giant white rectangle covering the whole screen. Fix this:
+>
+> **Fix 1 — Hide desk/monitor meshes after loading:**
+> ```js
+> character.traverse((child) => {
+>   if (child.isMesh) {
+>     const name = child.name.toLowerCase()
+>     if (name.includes('desk') || name.includes('table') ||
+>         name.includes('monitor') || name.includes('screen') ||
+>         name.includes('computer') || name.includes('plane') ||
+>         name.includes('keyboard') || name.includes('chair')) {
+>       child.visible = false
+>     }
+>   }
+> })
+> ```
+>
+> **Fix 2 — Move character UP so desk goes off screen:**
+> ```js
+> character.position.set(0, -8, 0)
+> ```
+>
+> **Fix 3 — Camera looks at face level:**
+> ```js
+> camera.position.set(0, 14.5, 24.7)
+> camera.lookAt(0, 14.5, 0)
+> camera.fov = 14.5
+> camera.zoom = 1.1
+> camera.updateProjectionMatrix()
+> ```
+>
+> Apply ALL three fixes together. Do not change anything else.
