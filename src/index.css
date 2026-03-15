@@ -905,3 +905,79 @@ body {
   color: rgba(255, 255, 255, 0.25);
   letter-spacing: 1px;
 }
+
+/* =============================================
+   VIEW MORE BUTTON (Work section)
+============================================= */
+.work-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+.more-projects-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  border: 1px solid rgba(94, 234, 212, 0.3);
+  background: rgba(94, 234, 212, 0.05);
+  color: #5eead4;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: background 0.25s, border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+}
+.more-projects-btn:hover {
+  background: rgba(94, 234, 212, 0.12);
+  border-color: rgba(94, 234, 212, 0.6);
+  box-shadow: 0 0 24px rgba(94, 234, 212, 0.15);
+  transform: translateY(-2px);
+}
+.more-projects-btn svg {
+  transition: transform 0.2s;
+}
+.more-projects-btn:hover svg {
+  transform: translateX(4px);
+}
+
+/* =============================================
+   ALL PROJECTS PAGE
+============================================= */
+.all-projects-page {
+  min-height: 100vh;
+  background: #050a12;
+  padding: 0 0 6rem;
+}
+.all-projects-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem 0;
+}
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 3rem;
+  transition: color 0.2s;
+}
+.back-btn:hover { color: #5eead4; }
+.back-btn svg { transition: transform 0.2s; }
+.back-btn:hover svg { transform: translateX(-3px); }
+
+.all-projects-header {
+  margin-bottom: 3.5rem;
+}
+.all-projects-subtitle {
+  font-size: 0.95rem;
+  color: #8b9ab0;
+  line-height: 1.7;
+  margin-top: 0.75rem;
+  max-width: 560px;
+}

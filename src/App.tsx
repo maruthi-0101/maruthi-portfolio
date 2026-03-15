@@ -1,3 +1,4 @@
+import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import HeroText from './components/HeroText'
 import Scene from './components/Character/Scene'
@@ -6,8 +7,9 @@ import Cursor from './components/Cursor'
 import About from './components/About'
 import Work from './components/Work'
 import Contact from './components/Contact'
+import AllProjects from './pages/AllProjects'
 
-export default function App() {
+function Home() {
   return (
     <>
       <Cursor />
@@ -28,5 +30,14 @@ export default function App() {
       <Work />
       <Contact />
     </>
+  )
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/projects" element={<AllProjects />} />
+    </Routes>
   )
 }
