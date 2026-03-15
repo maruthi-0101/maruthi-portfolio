@@ -62,9 +62,9 @@ export default function About() {
           <p className="edu-degree">B.Tech — Computer Science</p>
           <p className="edu-years">2022 – Present</p>
           <div className="edu-bar">
-            <div className="edu-bar-fill" style={{ width: '60%' }} />
+            <div className="edu-bar-fill" style={{ width: '80%' }} />
           </div>
-          <p className="edu-progress teal">3rd Year</p>
+          <p className="edu-progress teal">4th Year</p>
         </div>
 
         <div className="about-card about-experience">
