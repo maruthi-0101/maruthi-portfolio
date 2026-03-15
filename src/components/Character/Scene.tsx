@@ -50,8 +50,8 @@ function SceneInner() {
     // ── Scene / Camera ────────────────────────────────────────────────
     const scene  = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(14.5, window.innerWidth / window.innerHeight, 0.1, 1000)
-    camera.position.set(0, 14.5, 24.7)
-    camera.lookAt(0, 14.5, 0)
+    camera.position.set(0, 6, 24.7)
+    camera.lookAt(0, 6, 0)
     camera.zoom = 1.1
     camera.updateProjectionMatrix()
 
@@ -96,17 +96,17 @@ function SceneInner() {
           root.position.set(0, -8, 0)
           root.scale.set(1, 1, 1)
 
-          // Hide desk, monitor, keyboard, chair and any flat plane objects
+          // Allowlist: only these confirmed body-part meshes stay visible
+          const BODY_MESHES = new Set([
+            'Cube006', 'Cube006_1',
+            'CAP001', 'CAP002',
+            'Ear001', 'Eyebrow', 'EYEs001', 'Face002',
+            'Hair', 'Hand',
+            'Neck', 'Pant', 'Shoe', 'Sole', 'Teeth001',
+          ])
           root.traverse((child) => {
             if ((child as THREE.Mesh).isMesh) {
-              const name = child.name.toLowerCase()
-              if (
-                name.includes('desk') || name.includes('table') ||
-                name.includes('monitor') || name.includes('screen') ||
-                name.includes('computer') || name.includes('plane') ||
-                name.includes('keyboard') || name.includes('chair') ||
-                name.includes('floor') || name.includes('ground')
-              ) {
+              if (!BODY_MESHES.has(child.name)) {
                 child.visible = false
                 console.log('[Scene] hidden:', child.name)
               }

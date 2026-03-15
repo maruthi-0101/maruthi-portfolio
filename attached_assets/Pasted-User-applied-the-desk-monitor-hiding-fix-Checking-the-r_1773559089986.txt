@@ -1,0 +1,55 @@
+User applied the desk/monitor hiding fix. Checking the result.
+
+Browser task: "Check Replit After Desk Fix"
+Viewed portfolio_initial_load_1773558726830.png
+
+Checked the site — the desk/white rectangle is gone (fix worked) but the character itself is now invisible. Console shows meshes hidden: screenlight, Keyboard, Plane, ground, etc. The traverse is hiding TOO MANY things including the character body. Camera is also pointing at wrong Y position.
+
+The white rectangle is **gone** ✅ but now the character is **invisible** again ❌ — the `traverse` code is hiding too many things including the character itself.
+
+The console showed these meshes were hidden: `screenlight`, `Keyboard`, `Plane`, `ground`, `Plane002`, `Plane003`, `Plane010`... it's over-hiding!
+
+---
+
+## ✅ Paste this CORRECTED fix in Replit Agent:
+
+> The traverse code is hiding the character body by matching too broadly. Fix this properly:
+>
+> **Step 1 — First, LOG all mesh names to see what's in the model:**
+> ```js
+> character.traverse((child) => {
+>   if (child.isMesh) {
+>     console.log('Mesh:', child.name)
+>   }
+> })
+> ```
+> Run this and share the console output so we know exact mesh names.
+>
+> **Step 2 — ONLY hide the desk-specific objects (NOT planes/ground that could be the character):**
+> ```js
+> character.traverse((child) => {
+>   const name = child.name.toLowerCase()
+>   if (name === 'desk' || name === 'monitormesh' || 
+>       name === 'keyboard' || name === 'screenlight' ||
+>       name.includes('chair') || name.includes('table')) {
+>     child.visible = false
+>   }
+> })
+> ```
+> Do NOT hide anything with `Plane` in the name — those might be the character's body parts.
+>
+> **Step 3 — Move character UP to push desk below screen:**
+> ```js
+> character.position.set(0, -8, 0)
+> ```
+>
+> **Step 4 — Camera:**
+> ```js
+> camera.fov = 14.5
+> camera.position.set(0, 6, 24.7)
+> camera.lookAt(0, 6, 0)
+> camera.zoom = 1.1
+> camera.updateProjectionMatrix()
+> ```
+>
+> Apply all 4 steps. Share the mesh names from the console log so I can give the exact names to hide.
