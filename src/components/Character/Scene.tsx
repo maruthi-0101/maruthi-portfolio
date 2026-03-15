@@ -97,11 +97,34 @@ function SceneInner({ inline = false }: SceneInnerProps) {
     const loader = new GLTFLoader()
     loader.setDRACOLoader(dracoLoader)
 
+    // Simulated progress ticker for when server omits Content-Length
+    let simInterval: ReturnType<typeof setInterval> | null = null
+    let simPercent = 0
+
+    function dispatchProgress(p: number) {
+      if (!inline) window.dispatchEvent(new CustomEvent('scene:progress', { detail: p }))
+    }
+    function dispatchComplete() {
+      if (!inline) window.dispatchEvent(new CustomEvent('scene:complete'))
+    }
+
+    function startSimProgress() {
+      simPercent = 0
+      simInterval = setInterval(() => {
+        simPercent = Math.min(simPercent + Math.random() * 4, 90)
+        dispatchProgress(Math.round(simPercent))
+        if (simPercent >= 90 && simInterval) { clearInterval(simInterval); simInterval = null }
+      }, 80)
+    }
+
     function loadModel(url: string) {
+      startSimProgress()
       loader.load(
         url,
         (gltf) => {
           if (!alive) return
+          if (simInterval) { clearInterval(simInterval); simInterval = null }
+
           const root = gltf.scene
 
           // Hide desk / monitor / keyboard / prop objects only
@@ -143,11 +166,19 @@ function SceneInner({ inline = false }: SceneInnerProps) {
 
           wrapRef.current!.style.opacity = '1'
           console.log('[Scene] loaded:', url)
+          dispatchComplete()
         },
-        undefined,
+        (xhr) => {
+          if (xhr.total && xhr.total > 0) {
+            if (simInterval) { clearInterval(simInterval); simInterval = null }
+            dispatchProgress(Math.min(Math.round((xhr.loaded / xhr.total) * 100), 99))
+          }
+        },
         (err) => {
+          if (simInterval) { clearInterval(simInterval); simInterval = null }
           console.warn('[Scene] failed:', url, String(err))
           if (url === CHARACTER_URL) loadModel(FALLBACK_URL)
+          else dispatchComplete()
         }
       )
     }
@@ -185,6 +216,7 @@ function SceneInner({ inline = false }: SceneInnerProps) {
     return () => {
       alive = false
       cancelAnimationFrame(raf)
+      if (simInterval) clearInterval(simInterval)
       window.removeEventListener('mousemove', onMouse)
       if (ro) ro.disconnect()
       else window.removeEventListener('resize', onResize)

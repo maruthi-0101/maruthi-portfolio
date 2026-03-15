@@ -8,10 +8,12 @@ import About from './components/About'
 import Work from './components/Work'
 import Contact from './components/Contact'
 import AllProjects from './pages/AllProjects'
+import LoadingScreen from './components/LoadingScreen'
 
 function Home() {
   return (
     <>
+      <LoadingScreen />
       <Cursor />
       <div className="bg-blobs">
         <div className="blob blob-top" />

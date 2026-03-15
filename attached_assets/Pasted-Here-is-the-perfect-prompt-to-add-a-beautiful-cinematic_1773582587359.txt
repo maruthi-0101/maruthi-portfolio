@@ -1,0 +1,32 @@
+Here is the perfect prompt to add a beautiful, cinematic loading screen for your portfolio. This will hide the first page until the 3D avatar has fully loaded, and then slowly fade out to reveal the hero section!
+
+---
+
+## ✅ Paste this into Replit Agent:
+
+> Add a sleek, cinematic **Loading Screen** overlay that covers the entire website until the 3D character model is completely loaded.
+> 
+> **Task 1: Create the Loading Component**
+> - Build a full-screen overlay component (`position: fixed`, `inset: 0`, `z-index: 9999`, `background: #050a12`).
+> - Inside the overlay, perfectly center a minimalist, glowing teal (`#5eead4`) loading spinner or animated progress bar.
+> - Below the spinner, add text that says: `LOADING EXPERIENCE...` (uppercase, wide letter-spacing, small light-gray font).
+> - Add a dynamic percentage text (e.g., `0%` to `100%`).
+> 
+> **Task 2: Connect it to the 3D Loader in [Scene.tsx](cci:7://file:///Users/sreemaruthisundar/Downloads/Maruthis-protfolio/src/components/Character/Scene.tsx:0:0-0:0)**
+> - In [Scene.tsx](cci:7://file:///Users/sreemaruthisundar/Downloads/Maruthis-protfolio/src/components/Character/Scene.tsx:0:0-0:0), find the `loader.load(url, onLoad, undefined, onError)` function.
+> - Replace the `undefined` parameter with an `onProgress` callback:
+>   ```js
+>   (xhr) => { 
+>     const percent = Math.round((xhr.loaded / xhr.total) * 100);
+>     // Dispatch an event or update state here with the 'percent' value
+>   }
+>   ```
+> - Pass the loading percentage from [Scene.tsx](cci:7://file:///Users/sreemaruthisundar/Downloads/Maruthis-protfolio/src/components/Character/Scene.tsx:0:0-0:0) up to the new Loading component so the number visually counts up to 100%.
+> 
+> **Task 3: Smooth Fade-Out Reveal**
+> - Once the 3D model finishes loading (inside the `onLoad` callback in [Scene.tsx](cci:7://file:///Users/sreemaruthisundar/Downloads/Maruthis-protfolio/src/components/Character/Scene.tsx:0:0-0:0)), wait about `500ms`.
+> - Then, trigger a state change that fades the Loading Screen's `opacity` from `1` to `0` smoothly over `1.5 seconds` (`transition: opacity 1.5s ease-in-out`).
+> - After the fade-out completes, unmount the loading screen with `pointer-events: none` or remove it from the DOM completely so the user can interact with the website.
+
+---
+This prompt will give your website a premium, FAANG-level feel because user won't see any popping or empty space while the heavy 3D files load!
