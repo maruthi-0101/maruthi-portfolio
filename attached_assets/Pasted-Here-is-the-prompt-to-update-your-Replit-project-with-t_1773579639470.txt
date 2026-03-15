@@ -1,0 +1,32 @@
+Here is the prompt to update your Replit project with this fantastic new "About Me" text! 
+
+Because this text is detailed and very strong, the prompt tells Replit to format it beautifully with highlights so recruiters can easily scan it.
+
+---
+
+## ✅ Paste this into Replit Agent:
+
+> Update the **About Me** bio text in the About section with my new professional summary. Keep the "cute bento box" rounded card style with the dark navy background and teal borders, but expand the Bio card to fit this new text nicely.
+>
+> **Replace the bio text with exactly this:**
+> 
+> 👋 **About Me**
+> 
+> I am **Maruthi Sundar**, a Computer Science Engineering student at KL University with a CGPA of 8.0, passionate about building intelligent software systems and scalable web applications.
+> 
+> I have hands-on experience in full-stack development, artificial intelligence, and cloud technologies. My technical work includes developing web applications using Java, Python, JavaScript, MERN stack, and Django, as well as building AI models using TensorFlow, machine learning algorithms, and natural language processing techniques.
+> 
+> I completed a self-driven 2-month Artificial Intelligence learning program where I worked on machine learning, deep learning, NLP, reinforcement learning, and model deployment using modern tools such as NumPy, Pandas, TensorFlow, NLTK, SpaCy, Flask, and FastAPI.
+> 
+> I enjoy solving real-world problems through technology and continuously improve my skills by building projects, exploring AI systems like vector databases, RAG, and AI agents, and staying updated with modern software development practices.
+> 
+> My goal is to become a software engineer specializing in AI-powered applications and scalable cloud systems.
+>
+> **Design Rules for the Text:**
+> - Highlight key technical terms in the teal accent color (`#5eead4`) so they stand out to recruiters (e.g., highlight: *full-stack development*, *artificial intelligence*, *MERN stack*, *Django*, *TensorFlow*, *Vector databases*, *RAG*).
+> - Keep the text color a soft light gray/white for readability (`rgba(255, 255, 255, 0.9)`).
+> - Add good spacing between paragraphs (`gap` or `margin-bottom`) and use a comfortable line-height (`1.6`).
+
+---
+
+**P.S.** This version is very detailed and excellent! If you later decide you *do* want to use that shorter "5-second recruiter version" you mentioned, just paste it here and I'll give you a new prompt! Let me know how this looks once Replit finishes!

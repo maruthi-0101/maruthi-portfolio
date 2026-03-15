@@ -286,8 +286,8 @@ body {
   grid-row: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: 0.75rem;
+  overflow-y: auto;
 }
 .about-label {
   font-size: 0.65rem;
@@ -297,16 +297,25 @@ body {
   text-transform: uppercase;
 }
 .about-name {
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.1;
 }
-.about-desc {
-  font-size: 0.92rem;
-  line-height: 1.75;
-  color: #8b9ab0;
-  max-width: 520px;
+.about-bio {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.about-bio p {
+  font-size: 0.84rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0;
+}
+.about-bio strong {
+  color: #ffffff;
+  font-weight: 700;
 }
 
 /* Contact card — col 3, row 1 */

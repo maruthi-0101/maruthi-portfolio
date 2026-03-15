@@ -78,11 +78,42 @@ export default function About() {
         <div className="about-card about-intro">
           <p className="about-label">ABOUT ME</p>
           <h3 className="about-name">Maruthi <span className="teal">Sundar</span></h3>
-          <p className="about-desc">
-            I'm Maruthi Sundar, a passionate <span className="teal">Full-Stack and AI Engineer</span>.
-            I build scalable web apps and intelligent systems using modern tech.
-            From MERN stack to LLMs and cloud platforms — I love turning complex ideas into real products.
-          </p>
+          <div className="about-bio">
+            <p>
+              I am <strong>Maruthi Sundar</strong>, a Computer Science Engineering student at{' '}
+              <span className="teal">KL University</span> with a CGPA of{' '}
+              <span className="teal">8.0</span>, passionate about building intelligent software
+              systems and scalable web applications.
+            </p>
+            <p>
+              I have hands-on experience in{' '}
+              <span className="teal">full-stack development</span>,{' '}
+              <span className="teal">artificial intelligence</span>, and cloud technologies. My
+              technical work includes developing web applications using Java, Python, JavaScript,{' '}
+              <span className="teal">MERN stack</span>, and{' '}
+              <span className="teal">Django</span>, as well as building AI models using{' '}
+              <span className="teal">TensorFlow</span>, machine learning algorithms, and natural
+              language processing techniques.
+            </p>
+            <p>
+              I completed a self-driven 2-month Artificial Intelligence learning program where I
+              worked on machine learning, deep learning, NLP, reinforcement learning, and model
+              deployment using modern tools such as NumPy, Pandas, TensorFlow, NLTK, SpaCy,
+              Flask, and FastAPI.
+            </p>
+            <p>
+              I enjoy solving real-world problems through technology and continuously improve my
+              skills by building projects, exploring AI systems like{' '}
+              <span className="teal">vector databases</span>,{' '}
+              <span className="teal">RAG</span>, and{' '}
+              <span className="teal">AI agents</span>, and staying updated with modern software
+              development practices.
+            </p>
+            <p>
+              My goal is to become a software engineer specializing in AI-powered applications
+              and scalable cloud systems.
+            </p>
+          </div>
         </div>
 
         {/* ── Contact ── */}
