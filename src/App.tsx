@@ -3,6 +3,9 @@ import HeroText from './components/HeroText'
 import Scene from './components/Character/Scene'
 import SocialIcons from './components/SocialIcons'
 import Cursor from './components/Cursor'
+import About from './components/About'
+import Work from './components/Work'
+import Contact from './components/Contact'
 
 export default function App() {
   return (
@@ -14,11 +17,16 @@ export default function App() {
       </div>
       <Navbar />
       <SocialIcons />
-      <main className="hero">
+
+      <section className="hero" id="home">
         <HeroText />
         <Scene />
-      </main>
-      <a href="#" className="resume-btn" style={{ animation: 'fadeInUp 0.5s ease 1.4s both' }}>RESUME ⊞</a>
+        <a href="#" className="resume-btn">RESUME ⊞</a>
+      </section>
+
+      <About />
+      <Work />
+      <Contact />
     </>
   )
 }

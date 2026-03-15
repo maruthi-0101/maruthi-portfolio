@@ -49,10 +49,10 @@ function SceneInner() {
 
     // ── Scene / Camera ────────────────────────────────────────────────
     const scene  = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(14.5, window.innerWidth / window.innerHeight, 0.1, 1000)
-    camera.position.set(0, 6, 24.7)
-    camera.lookAt(0, 6, 0)
-    camera.zoom = 1.1
+    const camera = new THREE.PerspectiveCamera(22, window.innerWidth / window.innerHeight, 0.1, 1000)
+    camera.position.set(0, 13.5, 22)
+    camera.lookAt(0, 13.0, 0)
+    camera.zoom = 1
     camera.updateProjectionMatrix()
 
     // ── Lights ────────────────────────────────────────────────────────
@@ -136,7 +136,7 @@ function SceneInner() {
     const onResize = () => {
       const w = window.innerWidth, h = window.innerHeight
       camera.aspect = w / h
-      camera.zoom = 1.1
+      camera.zoom = 1
       camera.updateProjectionMatrix()
       renderer.setSize(w, h)
     }

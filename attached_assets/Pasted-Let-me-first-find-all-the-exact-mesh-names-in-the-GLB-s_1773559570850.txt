@@ -1,0 +1,74 @@
+Let me first find all the exact mesh names in the GLB so I can give you a 100% accurate prompt:
+
+User has limited prompts left. Need to give one precise fix. Parsing the GLB to get exact mesh names first.
+
+Edited list_meshes.mjs
+Browser task: "Quick Replit Screenshot"
+Viewed portfolio_current_state_1773559369702.png
+
+The 3D character is now rendering correctly — face/head visible with white cap. Just needs camera zoom-out to show more of the face. Desk is gone. Now need to give user final camera fix + 4-page portfolio prompt.
+
+🎉 **The character is now working!** The face/head is visible and the desk is completely gone!
+
+**Your site right now:**
+![Character working — face visible, desk gone!](/Users/sreemaruthisundar/.gemini/antigravity/brain/cdbba0c4-317c-42d3-bb2a-6002dd1df78d/portfolio_current_state_1773559369702.png)
+
+Just needs a small camera pullback so the face fits better. Here's the **final hero fix + all 4 pages** in one prompt:
+
+---
+
+## ✅ FINAL COMPLETE PROMPT — Paste this in Replit Agent:
+
+> Do all of the following in one go:
+>
+> **1. Fix camera zoom (face is too close, pull back slightly):**
+> ```js
+> camera.fov = 22
+> camera.position.set(0, 13.5, 22)
+> camera.lookAt(0, 13.0, 0)
+> camera.zoom = 1
+> camera.updateProjectionMatrix()
+> ```
+>
+> **2. Add smooth mouse head tracking** (find bone `spine006` after model loads):
+> ```js
+> let tX = 0, tY = 0
+> window.addEventListener('mousemove', e => {
+>   tX = (e.clientX / window.innerWidth) * 2 - 1
+>   tY = -(e.clientY / window.innerHeight) * 2 + 1
+> })
+> function lerp(a, b, t) { return a + (b - a) * t }
+> // in animate():
+> if (headBone) {
+>   headBone.rotation.y = lerp(headBone.rotation.y, tX * 0.5, 0.08)
+>   headBone.rotation.x = lerp(headBone.rotation.x, -tY * 0.25 - 0.3, 0.1)
+> }
+> ```
+>
+> **3. Now build the remaining 4 pages** (keep same dark theme `#050a12`, teal accent `#5eead4`):
+>
+> **Page 2 — ABOUT section:**
+> - Left: large heading "ABOUT ME", paragraph about Maruthi Sundar — a software engineer passionate about building web apps, React, Node.js, TypeScript
+> - Right: skills grid with icons — React, Node.js, TypeScript, MongoDB, Python, Git
+> - Scroll-triggered fade-in animations
+>
+> **Page 3 — WORK/PROJECTS section:**
+> - Heading: "MY WORK"
+> - 3 project cards with dark glass-style design, teal hover border glow, title, description, tech stack tags, and GitHub/Live links
+> - Projects: (1) Portfolio Website (2) E-Commerce App (3) Chat Application
+>
+> **Page 4 — CONTACT section:**
+> - Heading: "LET'S TALK"
+> - Contact form: Name, Email, Message fields — dark styled with teal focus border
+> - Submit button with teal glow hover
+> - Social links repeated at bottom
+>
+> **Page 5 — FOOTER:**
+> - "Made with ❤️ by Maruthi Sundar" centered
+> - Copyright 2025
+>
+> Keep all animations smooth, keep dark background, keep teal accent color throughout all pages. Make everything scroll-linked smoothly from the hero page.
+
+---
+
+This single prompt fixes the camera AND builds all 4 remaining pages! 🚀
