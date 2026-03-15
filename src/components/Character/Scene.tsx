@@ -49,9 +49,10 @@ function SceneInner() {
 
     // ── Scene / Camera ────────────────────────────────────────────────
     const scene  = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(28, window.innerWidth / window.innerHeight, 0.01, 1000)
-    camera.position.set(0, 1.5, 5)
-    camera.lookAt(0, 1, 0)
+    const camera = new THREE.PerspectiveCamera(14.5, window.innerWidth / window.innerHeight, 0.1, 1000)
+    camera.position.set(0, 13.1, 24.7)
+    camera.zoom = 1.1
+    camera.updateProjectionMatrix()
 
     // ── Lights ────────────────────────────────────────────────────────
     scene.add(new THREE.AmbientLight(0xffffff, 3.5))
@@ -90,22 +91,8 @@ function SceneInner() {
           scene.add(root)
           model = root
 
-          // Auto-fit camera: focus on upper body (head + shoulders)
-          root.updateMatrixWorld(true)
-          const box    = new THREE.Box3().setFromObject(root)
-          const size   = new THREE.Vector3()
-          const center = new THREE.Vector3()
-          box.getSize(size)
-          box.getCenter(center)
-
-          const fovRad  = (camera.fov * Math.PI) / 180
-          const camDist = (size.y / 1.4) / Math.tan(fovRad / 2)
-          const upperY  = box.max.y - size.y * 0.38
-
-          camera.position.set(center.x, upperY, center.z + camDist)
-          camera.lookAt(center.x, upperY, center.z)
-          camera.aspect = window.innerWidth / window.innerHeight
-          camera.updateProjectionMatrix()
+          root.position.set(0, 0, 0)
+          root.scale.set(1, 1, 1)
 
           if (gltf.animations.length) {
             mixer = new THREE.AnimationMixer(root)
@@ -130,6 +117,7 @@ function SceneInner() {
     const onResize = () => {
       const w = window.innerWidth, h = window.innerHeight
       camera.aspect = w / h
+      camera.zoom = 1.1
       camera.updateProjectionMatrix()
       renderer.setSize(w, h)
     }

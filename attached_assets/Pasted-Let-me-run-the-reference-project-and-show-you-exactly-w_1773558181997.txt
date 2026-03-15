@@ -1,0 +1,60 @@
+Let me run the reference project and show you exactly what the avatar looks like!
+
+Ran command: `cd /Users/sreemaruthisundar/Downloads/dummy-web/rajesh-portfolio && npm run dev`
+Browser task: "Reference Avatar Close-up Screenshot"
+Viewed landing_page_full_1773557940783.png
+
+Now I can show you both side by side very clearly:
+
+---
+
+**✅ REFERENCE (Rajesh portfolio) — What it SHOULD look like:**
+![Reference — face and shoulders close up, no desk/computer](/Users/sreemaruthisundar/.gemini/antigravity/brain/cdbba0c4-317c-42d3-bb2a-6002dd1df78d/landing_page_full_1773557940783.png)
+
+**❌ YOUR SITE — What it looks like now:**
+![Your site — full body sitting at computer desk](/Users/sreemaruthisundar/.gemini/antigravity/brain/cdbba0c4-317c-42d3-bb2a-6002dd1df78d/portfolio_blank_page_1773557262774.png)
+
+---
+
+You are **100% correct**! The reference shows:
+- ✅ **Only face + chest** — zoomed in close, fills the center
+- ✅ **No desk, no computer** — just the character portrait
+- ✅ **Camera is very close** — focused on head area
+
+Your site is showing:
+- ❌ Full body sitting at a desk with a monitor
+- ❌ Camera too far away
+- ❌ Wrong character pose/model
+
+---
+
+## ✅ Paste this fix in Replit Agent:
+
+> The camera is showing the full body sitting at a desk. Fix this to match the reference (https://rajeshchityal.vercel.app/) — only face and chest visible, no desk or computer:
+>
+> 1. **Camera must be zoomed in** — use these EXACT values:
+> ```js
+> camera.fov = 14.5
+> camera.position.set(0, 13.1, 24.7)
+> camera.zoom = 1.1
+> camera.updateProjectionMatrix()
+> ```
+>
+> 2. **The 3D model file being used is WRONG** — the current model shows a person at a desk. Replace the GLB path to use the decrypted character file:
+> ```js
+> loader.load('/models/character_decrypted.glb', ...)
+> ```
+> Make sure `character_decrypted.glb` is uploaded to [public/models/](cci:7://file:///Users/sreemaruthisundar/Downloads/dummy-web/rajesh-portfolio/public/models:0:0-0:0) — it is the correct cartoon face character.
+>
+> 3. After loading the model, set:
+> ```js
+> character.position.set(0, 0, 0)
+> character.scale.set(1, 1, 1)
+> ```
+>
+> 4. Draco decoder path:
+> ```js
+> dracoLoader.setDecoderPath('/draco/')
+> ```
+>
+> Do NOT change the navbar, text, layout, or social icons.
