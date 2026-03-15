@@ -68,14 +68,17 @@ export default function Contact() {
             </form>
           )}
           <div className="contact-social">
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="contact-social-link">
+            <a href="https://github.com/maruthi-0101" target="_blank" rel="noopener noreferrer" className="contact-social-link">
               GitHub
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="contact-social-link">
+            <a href="https://www.linkedin.com/in/maruthi-sundar-22ab76109" target="_blank" rel="noopener noreferrer" className="contact-social-link">
               LinkedIn
             </a>
-            <a href="mailto:maruthi@example.com" className="contact-social-link">
-              Email
+            <a href="https://x.com/maruthisundar1" target="_blank" rel="noopener noreferrer" className="contact-social-link">
+              Twitter / X
+            </a>
+            <a href="https://www.instagram.com/maruthi_4/" target="_blank" rel="noopener noreferrer" className="contact-social-link">
+              Instagram
             </a>
           </div>
         </div>

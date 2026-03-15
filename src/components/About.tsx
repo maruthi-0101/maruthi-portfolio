@@ -126,11 +126,11 @@ export default function About() {
             </li>
             <li>
               <span className="contact-icon">⌥</span>
-              <a href="https://github.com/maruthisundar" target="_blank" rel="noopener noreferrer">github.com/maruthisundar</a>
+              <a href="https://github.com/maruthi-0101" target="_blank" rel="noopener noreferrer">github.com/maruthi-0101</a>
             </li>
             <li>
               <span className="contact-icon">◈</span>
-              <a href="https://linkedin.com/in/maruthisundar" target="_blank" rel="noopener noreferrer">linkedin.com/in/maruthisundar</a>
+              <a href="https://www.linkedin.com/in/maruthi-sundar-22ab76109" target="_blank" rel="noopener noreferrer">linkedin.com/in/maruthi-sundar</a>
             </li>
           </ul>
         </div>
