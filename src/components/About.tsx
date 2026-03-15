@@ -116,31 +116,37 @@ export default function About() {
         </div>
 
         {/* ── Experience ── */}
-        <div className="about-card about-experience">
+        <div className="about-card about-experience exp-bento">
           <p className="card-label">WORK EXPERIENCE</p>
-          <ul className="exp-list">
-            <li>
-              <span className="exp-dot" />
-              <div>
-                <span className="exp-year">2023</span>
-                <p className="exp-role">Software Engineering Intern</p>
-              </div>
-            </li>
-            <li>
-              <span className="exp-dot" />
-              <div>
-                <span className="exp-year">2024</span>
-                <p className="exp-role">Freelance Full-Stack Developer</p>
-              </div>
-            </li>
-            <li>
-              <span className="exp-dot active" />
-              <div>
-                <span className="exp-year teal">2025 — Now</span>
-                <p className="exp-role">AI / ML Project Developer</p>
-              </div>
-            </li>
+
+          <div className="exp-header">
+            <div>
+              <p className="exp-role-title">Software Development Intern</p>
+              <p className="exp-company">ZettaByte Plus</p>
+            </div>
+            <span className="exp-badge">Internship</span>
+          </div>
+
+          <ul className="exp-bullets">
+            {[
+              'Worked on software development tasks and application features as part of the engineering team.',
+              'Assisted in building and improving backend and frontend components of web applications.',
+              'Collaborated with team members to develop scalable solutions and improve application performance.',
+              'Participated in debugging, testing, and optimizing code to ensure reliable functionality.',
+              'Gained practical experience with modern development tools, databases, and version control systems.',
+            ].map((point, i) => (
+              <li key={i}>
+                <span className="exp-chevron">›</span>
+                <span>{point}</span>
+              </li>
+            ))}
           </ul>
+
+          <div className="exp-tech-tags">
+            {['Java', 'Python', 'JavaScript', 'Web Dev Tools', 'Git'].map((t) => (
+              <span key={t} className="skill-pill">{t}</span>
+            ))}
+          </div>
         </div>
 
         {/* ── Languages ── */}
