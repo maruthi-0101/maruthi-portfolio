@@ -1,0 +1,81 @@
+User built their portfolio on Replit using the prompt and wants a comparison inspection.
+
+Browser task: "Inspecting Replit Portfolio Site"
+Viewed full_page_load_1773507992695.png
+Viewed mouse_center_1773508019441.png
+
+Inspected the live Replit site. Found 5 clear issues: 3D character is tiny (visible only at bottom), wrong position, camera/scale wrong, text layout issues (ENGINEER text is dim/too dark), and the center of the page is empty instead of having the large character.
+
+Now I have a crystal clear picture. Let me tell the user exactly what's wrong and give them the fix prompt:
+
+I inspected your Replit site. Here's what your site looks like vs what it should be:
+
+**Your site now:**
+![Current Replit Output](/Users/sreemaruthisundar/.gemini/antigravity/brain/cdbba0c4-317c-42d3-bb2a-6002dd1df78d/full_page_load_1773507992695.png)
+
+**What it should look like:**
+![Reference](/Users/sreemaruthisundar/.gemini/antigravity/brain/cdbba0c4-317c-42d3-bb2a-6002dd1df78d/hero_section_full_1773482418192.png)
+
+---
+
+## ❌ Problems Found (5 issues)
+
+| # | Problem | What's Happening |
+|---|---------|-----------------|
+| 1 | **3D Character is TINY** | The character model is visible only as a tiny emoji icon at the very bottom-center. Camera zoom is wrong |
+| 2 | **Character in wrong position** | Should be center of screen filling ~400px height. It's stuck at the bottom |
+| 3 | **Center of page is completely EMPTY** | The whole middle section is just blank dark space |
+| 4 | **"ENGINEER" text is too dim/grey** | Should be bright white when active, yours is faded grey |
+| 5 | **Custom cursor shows as a dot next to name** | The cursor dot is appearing inside the text area |
+
+---
+
+## ✅ Fix Prompt for Replit — Paste this:
+
+---
+
+> The 3D character/avatar is broken. Fix these exact issues:
+>
+> **Fix 1 — Character size & position:**
+> The `#character-container` or character canvas div must be positioned **absolutely in the center of the viewport** with `width: 100%` and `height: 100%`, `top: 0`, `left: 0`, `z-index: 1`. The canvas inside must also be `width: 100%` and `height: 100%`. Remove any fixed pixel sizes on the canvas.
+>
+> **Fix 2 — Three.js Camera:**
+> The camera is zoomed out too far. Change the camera setup to:
+> ```js
+> camera.fov = 14.5
+> camera.position.set(0, 13.1, 24.7)
+> camera.zoom = 1.1
+> camera.updateProjectionMatrix()
+> ```
+> This exact setup shows only the head and shoulders of the character large on screen.
+>
+> **Fix 3 — Model scale:**
+> After loading the GLB model, set `character.scale.set(1, 1, 1)` explicitly. Do NOT scale it down. Also make sure the model is centered: `character.position.set(0, 0, 0)`.
+>
+> **Fix 4 — "ENGINEER" / "SOFTWARE" flip text color:**
+> The active/visible word should be `color: white` with `font-weight: 800`. The ghost/exiting word should be `color: #5eead4` (teal). Right now both are grey. Fix the CSS for the active flip text state.
+>
+> **Fix 5 — Custom cursor:**
+> The `#cursor` div must have `pointer-events: none` and `position: fixed` with `z-index: 9999`. Make sure it is appended to `document.body`, not inside any other div. The `cursor: none` style must be on `* { cursor: none }` globally.
+>
+> **Fix 6 — Lighting (make character visible):**
+> Add these lights to the Three.js scene:
+> ```js
+> const ambientLight = new THREE.AmbientLight(0xffffff, 0.8)
+> scene.add(ambientLight)
+> const dirLight = new THREE.DirectionalLight(0x5eead4, 2)
+> dirLight.position.set(2, 5, 5)
+> scene.add(dirLight)
+> const fillLight = new THREE.DirectionalLight(0xffffff, 1)
+> fillLight.position.set(-3, 2, 3)
+> scene.add(fillLight)
+> ```
+>
+> **Fix 7 — Renderer background:**
+> Make sure `renderer.setClearColor(0x000000, 0)` so the canvas background is transparent and the site's dark background shows through behind the character.
+>
+> Do NOT change anything else — only fix the 7 issues listed above.
+
+---
+
+Paste that into Replit and it should fix the character! 🎯

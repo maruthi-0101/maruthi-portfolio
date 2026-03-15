@@ -1,0 +1,135 @@
+Perfect! You have the [character.glb](cci:7://file:///Users/sreemaruthisundar/Downloads/dummy-web/rajesh-portfolio/public/models/character.glb:0:0-0:0) file open. Here's the **exact Replit prompt** — just paste it:
+
+---
+
+> I have uploaded these files to my Replit `public/` folder:
+> - [public/models/character.glb](cci:7://file:///Users/sreemaruthisundar/Downloads/dummy-web/rajesh-portfolio/public/models/character.glb:0:0-0:0)
+> - [public/models/char_enviorment.hdr](cci:7://file:///Users/sreemaruthisundar/Downloads/dummy-web/rajesh-portfolio/public/models/char_enviorment.hdr:0:0-0:0)
+> - [public/draco/draco_decoder.js](cci:7://file:///Users/sreemaruthisundar/Downloads/dummy-web/rajesh-portfolio/public/draco/draco_decoder.js:0:0-0:0)
+> - [public/draco/draco_decoder.wasm](cci:7://file:///Users/sreemaruthisundar/Downloads/dummy-web/rajesh-portfolio/public/draco/draco_decoder.wasm:0:0-0:0)
+>
+> Now completely rewrite the [Scene.tsx](cci:7://file:///Users/sreemaruthisundar/Downloads/dummy-web/rajesh-portfolio/src/components/Character/Scene.tsx:0:0-0:0) (or wherever the Three.js character code is) to load and display this character correctly. Here is the exact implementation:
+>
+> **1. Imports needed:**
+> ```js
+> import * as THREE from 'three'
+> import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+> import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader'
+> import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
+> ```
+>
+> **2. Renderer setup:**
+> ```js
+> const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
+> renderer.setSize(window.innerWidth, window.innerHeight)
+> renderer.setPixelRatio(window.devicePixelRatio)
+> renderer.setClearColor(0x000000, 0)
+> renderer.toneMapping = THREE.ACESFilmicToneMapping
+> renderer.toneMappingExposure = 1
+> renderer.shadowMap.enabled = true
+> ```
+>
+> **3. Camera setup (shows head + shoulders only):**
+> ```js
+> const camera = new THREE.PerspectiveCamera(14.5, window.innerWidth / window.innerHeight, 0.1, 1000)
+> camera.position.set(0, 13.1, 24.7)
+> camera.zoom = 1.1
+> camera.updateProjectionMatrix()
+> ```
+>
+> **4. Lighting:**
+> ```js
+> const dirLight = new THREE.DirectionalLight(0x5eead4, 1)
+> dirLight.position.set(-0.47, -0.32, -1)
+> dirLight.castShadow = true
+> scene.add(dirLight)
+>
+> const pointLight = new THREE.PointLight(0x22d3ee, 0, 100, 3)
+> pointLight.position.set(3, 12, 4)
+> scene.add(pointLight)
+>
+> new RGBELoader().setPath('/models/').load('char_enviorment.hdr', (texture) => {
+>   texture.mapping = THREE.EquirectangularReflectionMapping
+>   scene.environment = texture
+>   scene.environmentIntensity = 0.64
+> })
+> ```
+>
+> **5. Load character.glb with Draco:**
+> ```js
+> const loader = new GLTFLoader()
+> const dracoLoader = new DRACOLoader()
+> dracoLoader.setDecoderPath('/draco/')
+> loader.setDRACOLoader(dracoLoader)
+>
+> loader.load('/models/character.glb', (gltf) => {
+>   const character = gltf.scene
+>   character.position.set(0, 0, 0)
+>   character.scale.set(1, 1, 1)
+>   scene.add(character)
+>
+>   // After loading, start render loop with head tracking
+>   startAnimation(character)
+> })
+> ```
+>
+> **6. Mouse tracking + render loop:**
+> ```js
+> let mouseX = 0, mouseY = 0
+>
+> window.addEventListener('mousemove', (e) => {
+>   mouseX = (e.clientX / window.innerWidth) * 2 - 1
+>   mouseY = -(e.clientY / window.innerHeight) * 2 + 1
+> })
+>
+> function lerp(a, b, t) { return a + (b - a) * t }
+>
+> function startAnimation(character) {
+>   const headBone = character.getObjectByName('spine006')
+>                 || character.getObjectByName('Head')
+>                 || character.getObjectByName('mixamorigHead')
+>
+>   function animate() {
+>     requestAnimationFrame(animate)
+>     if (headBone) {
+>       const maxRot = Math.PI / 6
+>       headBone.rotation.y = lerp(headBone.rotation.y, mouseX * maxRot, 0.1)
+>       headBone.rotation.x = lerp(headBone.rotation.x, -mouseY * 0.3 - 0.5 * maxRot, 0.2)
+>     }
+>     renderer.render(scene, camera)
+>   }
+>   animate()
+> }
+> ```
+>
+> **7. Canvas CSS — fix positioning:**
+> ```css
+> #character-model canvas {
+>   position: fixed !important;
+>   top: 0 !important;
+>   left: 0 !important;
+>   width: 100vw !important;
+>   height: 100vh !important;
+>   z-index: 1;
+>   pointer-events: none;
+> }
+> .hero-text-left, .hero-text-right, nav, .social-icons {
+>   z-index: 2;
+>   position: relative;
+> }
+> ```
+>
+> **8. Handle window resize:**
+> ```js
+> window.addEventListener('resize', () => {
+>   camera.aspect = window.innerWidth / window.innerHeight
+>   camera.updateProjectionMatrix()
+>   renderer.setSize(window.innerWidth, window.innerHeight)
+> })
+> ```
+>
+> Do NOT change the navbar, text, social icons or any other part of the page. Only replace the 3D character scene code.
+
+---
+
+This will make the **exact same character as the Rajesh Chityal portfolio** appear on your site with full mouse head tracking! 🎯

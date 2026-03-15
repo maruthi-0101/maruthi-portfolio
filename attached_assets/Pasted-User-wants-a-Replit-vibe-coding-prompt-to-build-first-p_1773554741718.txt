@@ -1,0 +1,154 @@
+User wants a Replit vibe-coding prompt to build first page of portfolio for Maruthi Sundar (Software Engineer), inspired pin-to-pin from Rajesh Chityal portfolio.
+
+Let me quickly re-run the project and look at the hero section one more time to capture every detail before writing the prompt.
+
+Ran command: `cd /Users/sreemaruthisundar/Downloads/dummy-web/rajesh-portfolio && npm run dev`
+
+Dev server restarted at http://localhost:5173/. Will capture screenshots to study every pixel of the hero section before writing the Replit prompt.
+
+Browser task: "Hero Section Detail Screenshots"
+Viewed hero_section_full_1773482418192.png
+Viewed head_tracking_left_1773482440505.png
+
+Now I have every pixel studied. Let me look at the source code for the 3D character utilities to write the most accurate prompt:
+
+Re-ran the project and captured fresh screenshots — both the hero section and head-tracking behavior are clearly visible. Now have full visual reference to write the perfect prompt.
+
+Listed directory utils
+Viewed mouseUtils.ts:1-83
+Viewed character.ts:1-80
+Viewed lighting.ts:1-62
+
+Now I have everything I need — every pixel, every line of code. Let me write the ultimate Replit prompt:
+
+Studied every source file in depth — mouseUtils.ts (lerp head rotation), character.ts (GLTF + Draco loader), lighting.ts (GSAP turn-on effect, teal directional light, HDRI env map). Combined with fresh live screenshots. Fully ready to write the perfect prompt.
+
+
+Here are the two reference screenshots of what you're building (from the live Rajesh Chityal portfolio):
+
+![Full Hero — 3D character centered, head looking straight](/Users/sreemaruthisundar/.gemini/antigravity/brain/cdbba0c4-317c-42d3-bb2a-6002dd1df78d/hero_section_full_1773482418192.png)
+
+![Head Tracking — character's head turns LEFT when mouse moves left](/Users/sreemaruthisundar/.gemini/antigravity/brain/cdbba0c4-317c-42d3-bb2a-6002dd1df78d/head_tracking_left_1773482440505.png)
+
+---
+
+## 📋 Replit Prompt — Copy & Paste Exactly:
+
+---
+
+Build a **single-page portfolio hero section** from scratch using **React + Vite + TypeScript**. The reference design is https://rajeshchityal.vercel.app/ — replicate it pixel-perfect with these personal changes:
+
+---
+
+### 👤 Personal Info:
+- Name: **MARUTHI SUNDAR**
+- Initials logo: **MS**
+- Email: **maruthisundar@gmail.com**
+- Title: **A Software Engineer**
+- Right side animated flip text alternates between: **"SOFTWARE"** and **"ENGINEER"**
+
+---
+
+### 🎨 Design (exact colors from reference):
+- Background: `#050a12` (very deep dark navy)
+- Accent / teal color: `#5eead4`
+- Muted text: `#8b9ab0`
+- Font: `Inter` from Google Fonts
+- Overall style: premium, dark, cinematic, minimal — full viewport height (100vh), **no scrollbar visible on landing**
+
+---
+
+### 🏗️ Layout Structure (exactly like reference):
+
+**Navbar (fixed, top):**
+- Far left: `MS` — white, bold, large, acts as home link
+- Center: `maruthisundar@gmail.com` — muted grey color
+- Far right: three links — `ABOUT`, `WORK`, `CONTACT` — white uppercase, `letter-spacing: 2px`
+- Each nav link has a **marquee hover effect**: the text slides up and a duplicate slides in from below using CSS `overflow: hidden` + `translateY` transition
+
+**Left sidebar (fixed, vertically centered):**
+- 4 icons stacked vertically with `gap: 24px`
+- Icons: GitHub, LinkedIn, Twitter/X, Instagram — use inline SVGs, white color, `20px` size
+- On hover: `opacity` goes from `0.5` to `1` with `transition: 0.3s`
+
+**Hero center — 3D Character (THE MOST IMPORTANT PART):**
+- Create a `<div id="character-container">` positioned **absolutely, centered** on screen, full height, `z-index: 2`
+- Inside it, a `<div id="character-model">` — this is where Three.js renders the canvas
+- Also inside: a `<div class="character-rim">` — a large glowing teal ellipse (`border-radius: 50%`, `background: radial-gradient(ellipse, rgba(94,234,212,0.15) 0%, transparent 70%)`, blurred `filter: blur(40px)`, starts at `opacity: 0` and animates to `opacity: 1` when model loads)
+- Load a **free 3D cartoon character GLB** from this URL: `https://threejs.org/examples/models/gltf/RobotExpressive/RobotExpressive.glb` — OR use the Mixamo character, whichever Replit can access. If that fails, use: `https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/Soldier/Soldier.glb`
+- Three.js setup:
+  - `WebGLRenderer` with `alpha: true`, `antialias: true`
+  - `toneMapping: THREE.ACESFilmicToneMapping`, `toneMappingExposure: 1`
+  - `PerspectiveCamera` with `fov: 14.5`, positioned at `(0, 13.1, 24.7)`, `zoom: 1.1`
+  - Lights: `DirectionalLight(0x5eead4)` from position `(-0.47, -0.32, -1)`, plus `PointLight(0x22d3ee)` at `(3, 12, 4)`
+  - `AmbientLight` intensity `0.3`
+
+**Mouse head tracking (critical feature):**
+- On `mousemove`, normalize mouse position: `mouseX = (event.clientX / window.innerWidth) * 2 - 1` and `mouseY = -(event.clientY / window.innerHeight) * 2 + 1`
+- In the `requestAnimationFrame` render loop, find the character's head/spine bone: `character.getObjectByName("spine006")` or `"Head"` or `"mixamorigHead"` (try all three, use whichever exists)
+- Apply smooth rotation using lerp: `headBone.rotation.y = lerp(headBone.rotation.y, mouseX * (Math.PI/6), 0.1)` and `headBone.rotation.x = lerp(headBone.rotation.x, -mouseY * 0.3, 0.2)` — where `lerp(a,b,t) = a + (b-a)*t`
+- **Max rotation clamped to** `Math.PI / 6` (30 degrees) on Y axis
+
+**Hero left text:**
+- Small label: `Hello! I'm` — color `#5eead4`, font-size `1.2rem`, font-weight `400`
+- Big name line 1: `MARUTHI` — white, `font-size: clamp(3rem, 7vw, 6rem)`, `font-weight: 800`, `letter-spacing: -2px`, `line-height: 1`
+- Big name line 2: `SUNDAR` — same style as line 1
+- Position: left side of screen, vertically centered, `padding-left: 5vw`
+
+**Hero right text:**
+- Small label: `A Software` — color `#8b9ab0`, font-size `1.1rem`
+- Below it: animated flip between `SOFTWARE` and `ENGINEER`:
+  - Container has `overflow: hidden`, fixed height
+  - Two divs stacked — one slides up while the other slides in from below every 2.5 seconds
+  - Active word: white, `font-size: clamp(2rem, 5vw, 4.5rem)`, `font-weight: 800`
+  - Exiting word: color `#5eead4`, slightly larger (the "ghost" behind), same font
+- Position: right side, vertically centered, `padding-right: 5vw`
+
+**Bottom-right RESUME button:**
+- Position: `fixed`, `bottom: 2rem`, `right: 2rem`
+- Text: `RESUME ⊞` — uppercase, `letter-spacing: 3px`, `font-size: 0.75rem`, color `rgba(255,255,255,0.4)`
+- On hover: color becomes `rgba(255,255,255,0.9)`, transition `0.3s`
+
+**Background:**
+- Two large blurred gradient orbs (absolutely positioned `z-index: -1`):
+  - Top-center: `rgba(94,234,212,0.05)`, `600px × 600px`, `filter: blur(150px)`
+  - Bottom-right: `rgba(100,60,255,0.06)`, `500px × 500px`, `filter: blur(150px)`
+
+**Custom cursor:**
+- Hide default cursor with `cursor: none` on `body`
+- A `<div id="cursor">` — `8px × 8px`, `border-radius: 50%`, `background: white`, `pointer-events: none`, `position: fixed`, `z-index: 9999`
+- JS: track `mousemove`, set `cursor.style.left` and `cursor.style.top` using lerp so it **lags slightly** behind the real cursor (smooth follow)
+
+---
+
+### ✨ Entry animations (on page load, staggered):
+- `0.3s` delay — Navbar fades in from top (`translateY(-20px)` → `translateY(0)`)
+- `0.6s` delay — Left name text fades in from left (`translateX(-30px)` → `0`)
+- `0.8s` delay — Right flip text fades in from right
+- `1.0s` delay — After 3D model loads, the character fades in + the teal rim glow fades in
+- `1.2s` delay — Social icons fade in from left
+
+---
+
+### 📁 File structure:
+```
+src/
+  App.tsx           — imports and renders all components
+  main.tsx          — entry point
+  index.css         — global styles, cursor, body bg
+  components/
+    Navbar.tsx
+    HeroText.tsx    — left name + right flip text
+    Character/
+      Scene.tsx     — Three.js setup, model load, render loop
+      mouseUtils.ts — handleMouseMove, handleHeadRotation with lerp
+      lighting.ts   — Three.js lights setup
+    SocialIcons.tsx
+    Cursor.tsx
+```
+
+**Do NOT add any other sections (About, Work, Contact, etc.) — ONLY the hero landing page.**
+
+---
+
+That's the full prompt! Paste this directly into Replit Agent and it will build you the exact same premium hero section as the reference, with your name **Maruthi Sundar** and the interactive 3D mouse-tracking character. 🚀
