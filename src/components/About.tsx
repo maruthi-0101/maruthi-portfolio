@@ -1,3 +1,5 @@
+import Scene from './Character/Scene'
+
 const DEVICON = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons'
 
 const SKILL_SECTIONS = [
@@ -59,17 +61,16 @@ export default function About() {
 
       <div className="about-grid">
 
-        {/* ── Profile scanner ── */}
+        {/* ── Profile — inline 3D avatar ── */}
         <div className="about-card about-profile">
           <div className="scanner-frame">
             <span className="bracket tl" />
             <span className="bracket tr" />
             <span className="bracket bl" />
             <span className="bracket br" />
-            <svg viewBox="0 0 80 80" fill="none" className="profile-silhouette">
-              <circle cx="40" cy="28" r="16" fill="rgba(94,234,212,0.15)" stroke="#5eead4" strokeWidth="1.5"/>
-              <path d="M10 72c0-16.6 13.4-30 30-30s30 13.4 30 30" fill="rgba(94,234,212,0.1)" stroke="#5eead4" strokeWidth="1.5"/>
-            </svg>
+            <div className="profile-avatar-wrap">
+              <Scene inline={true} />
+            </div>
             <div className="scanner-line" />
           </div>
         </div>

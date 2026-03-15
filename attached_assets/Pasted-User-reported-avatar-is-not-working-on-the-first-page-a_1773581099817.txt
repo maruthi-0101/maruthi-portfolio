@@ -1,0 +1,38 @@
+User reported avatar is not working on the first page, and wants the About Me profile pic updated to match the avatar. Checking the live site now.
+
+Browser task: "Inspect Avatar and About Me"
+
+Confirmed the avatar is missing on the Hero section and the About Me section has a generic placeholder. Preparing exactly what to tell Replit Agent to fix both.
+
+Viewed hero_section_1773580965407.png
+Viewed about_me_section_1773580976799.png
+
+Confirmed the avatar is missing on the Hero section and the About Me section has a generic placeholder. Preparing exactly what to tell Replit Agent to fix both.
+
+I see exactly what happened!
+
+1. **Hero Avatar Missing:** When the AI built the other pages, it either removed the `<Scene />` from your Hero section or messed up the `Scene.tsx` hiding logic again, making the 3D character invisible.
+2. **About Me Profile Pic:** It is currently using a generic SVG icon instead of the avatar.
+
+Here is the exact prompt to paste into Replit to fix **both** issues at once:
+
+---
+
+## ✅ Paste this into Replit Agent:
+
+> **Task 1: Fix the missing 3D Avatar in the Hero Section**
+> The 3D character (`character.glb`) is no longer visible in the Hero section. 
+> - Check `Hero.tsx` (or `App.tsx`) and ensure that the `<Scene />` component is still being rendered.
+> - Check `Scene.tsx` and ensure the `traverse` logic is ONLY hiding the desk components, NOT the character itself. The traverse logic should ONLY be: 
+> ```js
+> if (n === 'ground' || n === 'screenlight' || n.startsWith('KEYS') || n.toLowerCase().includes('monitor') || n.toLowerCase().includes('desk')) { child.visible = false }
+> ```
+> - Ensure the root scale and position are correct: `root.scale.setScalar(1.6 / size.y); root.position.set(0, 3.5, 0);`
+>
+> **Task 2: Update the "About Me" Profile Picture**
+> - In the "About Me" section, there is a generic teal placeholder icon in the top left card (`<svg>` or similar).
+> - Remove the generic icon.
+> - Replace it by rendering the exact same 3D Avatar (`character.glb`) inside that small card frame!
+> - To do this without breaking the Hero section, update `Scene.tsx` to accept a prop: `export default function Scene({ inline = false })`. 
+> - If `inline` is true, change the container style to `position: 'relative', width: '100%', height: '100%'` instead of `fixed, inset: 0`. Also, adjust the camera zoom so it fits nicely inside the small card.
+> - Import and render `<Scene inline={true} />` inside the profile picture box in the About Me section.

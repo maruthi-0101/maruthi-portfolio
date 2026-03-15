@@ -259,10 +259,13 @@ body {
 .bracket.bl { bottom: 0; left: 0;  border-width: 0 0 2px 2px; }
 .bracket.br { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
 
-.profile-silhouette {
-  width: 72%;
-  height: 72%;
-  opacity: 0.9;
+.profile-avatar-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: inherit;
 }
 
 .scanner-line {
