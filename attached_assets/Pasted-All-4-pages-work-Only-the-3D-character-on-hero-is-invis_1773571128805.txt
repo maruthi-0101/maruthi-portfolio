@@ -1,0 +1,86 @@
+All 4 pages work. Only the 3D character on hero is invisible. Need to diagnose the Scene.tsx code directly.
+
+Let me check the actual Scene.tsx code from the Maruthis-protfolio project to see what's there:
+
+Searched for files: Scene*
+Browser task: "Hero Console Deep Inspect"
+Viewed Scene.tsx:1-185
+Viewed full_page_inspection_1773569889506.png
+
+Found the root cause. The local Scene.tsx loads RobotExpressive.glb (not character_decrypted.glb). The Replit version has a monitor/desk plane not being hidden. The character face is visible but the monitor screen blocks the bottom half. Need to fix by raising character position significantly and hiding the monitor object specifically.
+
+Now I can see EXACTLY what's happening! The **monitor/screen** object is blocking the face. I can see the character's face peeking above a huge white rectangle. Let me give the definitive fix:
+
+I can see the exact problem now! The character's **face IS showing** at the top but the **monitor screen** (big white rectangle) is blocking everything below. The face just needs to move UP above the monitor.
+
+**Current state:**
+![Face visible but monitor blocking bottom half](/Users/sreemaruthisundar/.gemini/antigravity/brain/cdbba0c4-317c-42d3-bb2a-6002dd1df78d/full_page_inspection_1773569889506.png)
+
+---
+
+## ✅ FINAL DEFINITIVE FIX — Paste this in Replit:
+
+> In `Scene.tsx`, find the part inside `loader.load(url, (gltf) => { ... })` and replace EVERYTHING inside it with this exact code:
+>
+> ```js
+> const root = gltf.scene
+>
+> // Step 1: Hide ONLY the desk/monitor/keyboard — NOT the character body
+> root.traverse((child: any) => {
+>   if (child.isMesh) {
+>     const n = child.name
+>     console.log('[Scene] mesh:', n)
+>     if (
+>       n === 'ground' ||
+>       n === 'screenlight' ||
+>       n.startsWith('KEYS') ||
+>       n.toLowerCase().includes('monitor') ||
+>       n.toLowerCase().includes('screen') ||
+>       n.toLowerCase().includes('desk') ||
+>       n.toLowerCase().includes('table') ||
+>       n.toLowerCase().includes('computer') ||
+>       n.toLowerCase().includes('keyboard')
+>     ) {
+>       child.visible = false
+>       console.log('[Scene] hidden:', n)
+>     }
+>   }
+> })
+>
+> // Step 2: Scale the character to fill the screen
+> const box = new THREE.Box3().setFromObject(root)
+> const size = new THREE.Vector3()
+> box.getSize(size)
+> root.scale.setScalar(1.6 / size.y)
+>
+> // Step 3: Move the character UP so desk goes below screen
+> root.position.set(0, 3.5, 0)
+>
+> scene.add(root)
+> model = root
+>
+> if (gltf.animations.length > 0) {
+>   mixer = new THREE.AnimationMixer(root)
+>   const idle = gltf.animations.find((a: any) => /idle/i.test(a.name)) || gltf.animations[0]
+>   mixer.clipAction(idle).play()
+> }
+>
+> if (rimRef.current) {
+>   rimRef.current.style.transition = 'opacity 1.2s ease'
+>   rimRef.current.style.opacity = '1'
+> }
+> renderer.domElement.style.transition = 'opacity 1s ease 0.2s'
+> renderer.domElement.style.opacity = '1'
+>
+> console.log('[Scene] loaded:', url)
+> ```
+>
+> Also set the camera to:
+> ```js
+> camera.position.set(0, 13.8, 24.7)
+> camera.fov = 14.5
+> camera.zoom = 1.1
+> camera.updateProjectionMatrix()
+> ```
+>
+> Do NOT change anything else in the file.

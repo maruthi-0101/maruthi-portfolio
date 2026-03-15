@@ -49,10 +49,10 @@ function SceneInner() {
 
     // ── Scene / Camera ────────────────────────────────────────────────
     const scene  = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(20, window.innerWidth / window.innerHeight, 0.1, 1000)
-    camera.position.set(0, 7.5, 20)
-    camera.lookAt(0, 7.5, 0)
-    camera.zoom = 1
+    const camera = new THREE.PerspectiveCamera(14.5, window.innerWidth / window.innerHeight, 0.1, 1000)
+    camera.position.set(0, 13.8, 24.7)
+    camera.lookAt(0, 13.8, 0)
+    camera.zoom = 1.1
     camera.updateProjectionMatrix()
 
     // ── Lights ────────────────────────────────────────────────────────
@@ -89,28 +89,40 @@ function SceneInner() {
         (gltf) => {
           if (!alive) return
           const root = gltf.scene
-          scene.add(root)
-          model = root
 
-          // Push character UP so desk slides below the viewport
-          root.position.set(0, -6, 0)
-          root.scale.set(1, 1, 1)
-
-          // Denylist: ONLY hide exact confirmed desk/prop objects
+          // Hide all desk / monitor / keyboard / prop objects by name pattern
           root.traverse((child) => {
             if ((child as THREE.Mesh).isMesh) {
               const n = child.name
+              const lc = n.toLowerCase()
               if (
                 n === 'ground' ||
                 n === 'screenlight' ||
-                n === 'MonitorScreen' ||
-                n.startsWith('KEYS')
+                n.startsWith('KEYS') ||
+                lc.includes('monitor') ||
+                lc.includes('screen') ||
+                lc.includes('desk') ||
+                lc.includes('table') ||
+                lc.includes('computer') ||
+                lc.includes('keyboard')
               ) {
                 child.visible = false
                 console.log('[Scene] hidden:', n)
               }
             }
           })
+
+          // Normalise scale so character fills the frame regardless of GLB units
+          const box  = new THREE.Box3().setFromObject(root)
+          const size = new THREE.Vector3()
+          box.getSize(size)
+          root.scale.setScalar(1.6 / size.y)
+
+          // Shift character UP so any remaining desk sits below the viewport
+          root.position.set(0, 3.5, 0)
+
+          scene.add(root)
+          model = root
 
           if (gltf.animations.length) {
             mixer = new THREE.AnimationMixer(root)
@@ -135,7 +147,7 @@ function SceneInner() {
     const onResize = () => {
       const w = window.innerWidth, h = window.innerHeight
       camera.aspect = w / h
-      camera.zoom = 1
+      camera.zoom = 1.1
       camera.updateProjectionMatrix()
       renderer.setSize(w, h)
     }
