@@ -1,0 +1,40 @@
+Here is the perfect prompt to update your **Projects / My Work** section with these three amazing projects. It maintains your beautiful dark theme and adds the professional FAANG-level touches (tags, clean layout, and links).
+
+---
+
+## ✅ Paste this into Replit Agent:
+
+> Completely redesign the **"My Work" / Projects** section. Make it look like a high-end, FAANG-level developer portfolio. Use the dark cinematic theme with teal (`#5eead4`) accents.
+>
+> **Design Rules for Project Cards:**
+> - Display the 3 projects in a modern grid (or a clean vertical layout with alternating image/text sides).
+> - **Card Style:** Glassmorphism effect. Dark semi-transparent background (`rgba(255,255,255,0.03)`), rounded corners (`24px`), subtle inner shadow, and a glowing teal border on hover (`border: 1px solid rgba(94,234,212,0.3)`).
+> - **Content Layout inside each card:**
+>   - **Title** (Large white text)
+>   - **Description** (Light gray text, line-height 1.6)
+>   - **Key Features list** (Use a small teal checkmark icon `✓` instead of standard bullets)
+>   - **Tech Stack Tags:** Cute, pill-shaped tags (dark background, teal outline, small teal text) for each technology used.
+>   - **Links Row at the bottom:** Add small, sleek buttons/icons for "GitHub", "Live Demo", and "Architecture".
+>
+> **Project 1:**
+> - **Title:** 🚗 AI-Powered Car Part Recognition
+> - **Description:** An AI-based computer vision system that detects and identifies car parts from images and provides smart suggestions related to the detected component.
+> - **Key Features:** Image recognition using deep learning; Automatic identification from uploads; Intelligent suggestions; Interactive web interface.
+> - **Tech Stack Tags:** Python, TensorFlow, CNN, Computer Vision, Flask/FastAPI, Streamlit
+>
+> **Project 2:**
+> - **Title:** 💬 Intelligent NLP Chatbot
+> - **Description:** A conversational AI chatbot capable of understanding user queries and generating meaningful responses using Natural Language Processing.
+> - **Key Features:** Text preprocessing (tokenization, stemming); Intent detection & response generation; Context-based flow; Web interface integration.
+> - **Tech Stack Tags:** Python, NLTK, SpaCy, Transformers, Flask/FastAPI
+>
+> **Project 3:**
+> - **Title:** 🌐 Project Collaboration System
+> - **Description:** A web-based platform that allows teams to manage projects, assign tasks, and track progress efficiently.
+> - **Key Features:** Project & task management; Progress tracking; User authentication; Real-time monitoring dashboard.
+> - **Tech Stack Tags:** MERN Stack, React, Node.js, MongoDB, JavaScript
+>
+> Make sure the section heading says "FEATURED PROJECTS" and animations are smooth (fade up on scroll).
+
+---
+Copy and paste this into Replit, and it will build out a highly professional, recruiter-ready projects section! Let me know when it's done or if you need to adjust anything else.
