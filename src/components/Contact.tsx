@@ -84,7 +84,7 @@ export default function Contact() {
         </div>
       </div>
       <footer className="site-footer">
-        <p>Made with <span className="teal">♥</span> by Maruthi Sundar &nbsp;·&nbsp; © 2025</p>
+        <p>Made with <span className="teal">♥</span> by Maruthi Sundar &nbsp;·&nbsp; © 2026</p>
       </footer>
     </section>
   )

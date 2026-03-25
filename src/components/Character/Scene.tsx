@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState, Component, ReactNode } from 'react'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
-import { handleMouseMove, applyHeadTracking, MouseState } from './mouseUtils'
+import { handleMouseMove, applyHeadTracking, findHeadBone, filterOutBoneTracks, MouseState } from './mouseUtils'
 
 const CHARACTER_URL = '/models/character.glb'
-const FALLBACK_URL  = '/RobotExpressive.glb'
+const FALLBACK_URL = '/RobotExpressive.glb'
 
 class SceneBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
   state = { failed: false }
@@ -28,6 +27,7 @@ interface SceneInnerProps {
 function SceneInner({ inline = false }: SceneInnerProps) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const [webglOk, setWebglOk] = useState(true)
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     if (!isWebGLAvailable()) { setWebglOk(false); return }
@@ -41,7 +41,7 @@ function SceneInner({ inline = false }: SceneInnerProps) {
       renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'high-performance' })
     } catch { setWebglOk(false); return }
 
-    const getW = () => inline ? wrap.clientWidth  : window.innerWidth
+    const getW = () => inline ? wrap.clientWidth : window.innerWidth
     const getH = () => inline ? wrap.clientHeight : window.innerHeight
 
     renderer.setSize(getW(), getH())
@@ -51,22 +51,30 @@ function SceneInner({ inline = false }: SceneInnerProps) {
     renderer.setClearColor(0x000000, 0)
 
     const canvas = renderer.domElement
-    canvas.style.cssText = 'width:100%;height:100%;display:block'
+    // Force own GPU compositing layer — prevents CSS repaints from other
+    // elements (e.g. HeroText role cycling) from causing the canvas to blink
+    canvas.style.cssText = 'width:100%;height:100%;display:block;will-change:transform;transform:translateZ(0)'
     wrap.appendChild(canvas)
 
     // ── Scene / Camera ────────────────────────────────────────────────
-    const scene  = new THREE.Scene()
-    const fov    = inline ? 22 : 14.5
-    const camera = new THREE.PerspectiveCamera(fov, getW() / getH(), 0.1, 1000)
+    const scene = new THREE.Scene()
+
+    let w = getW(), h = getH()
+    const aspect = w / h
+    let camera: THREE.PerspectiveCamera
+
     if (inline) {
-      camera.position.set(0, 13.2, 22)
-      camera.lookAt(0, 13.2, 0)
-      camera.zoom = 1.3
+      camera = new THREE.PerspectiveCamera(22, aspect, 0.1, 1000)
+      camera.position.set(0, 13.1, 12)
+      camera.lookAt(0, 13.1, 0)
+      camera.zoom = 2.0
     } else {
-      camera.position.set(0, 13.8, 24.7)
-      camera.lookAt(0, 13.8, 0)
+      // Matching exact Rajesh camera setup meant for the diorama
+      camera = new THREE.PerspectiveCamera(14.5, aspect, 0.1, 1000)
+      camera.position.set(0, 13.1, 24.7)
       camera.zoom = 1.1
     }
+
     camera.updateProjectionMatrix()
 
     // ── Lights ────────────────────────────────────────────────────────
@@ -88,14 +96,12 @@ function SceneInner({ inline = false }: SceneInnerProps) {
 
     const clock = new THREE.Clock()
     let mixer: THREE.AnimationMixer | null = null
-    let model:  THREE.Object3D | null = null
+    let model: THREE.Object3D | null = null
+    let headBone: THREE.Object3D | null = null
     let alive = true
 
     // ── Load model ────────────────────────────────────────────────────
-    const dracoLoader = new DRACOLoader()
-    dracoLoader.setDecoderPath('/draco/')
     const loader = new GLTFLoader()
-    loader.setDRACOLoader(dracoLoader)
 
     // Simulated progress ticker for when server omits Content-Length
     let simInterval: ReturnType<typeof setInterval> | null = null
@@ -126,45 +132,77 @@ function SceneInner({ inline = false }: SceneInnerProps) {
           if (simInterval) { clearInterval(simInterval); simInterval = null }
 
           const root = gltf.scene
+          console.log('[Scene] new character gltf:', gltf, 'root:', root)
 
-          // Hide desk / monitor / keyboard / prop objects only
-          root.traverse((child) => {
-            if ((child as THREE.Mesh).isMesh) {
-              const n  = child.name
-              const lc = n.toLowerCase()
-              if (
-                n === 'ground' ||
-                n === 'screenlight' ||
-                n.startsWith('KEYS') ||
-                lc.includes('monitor') ||
-                lc.includes('screen') ||
-                lc.includes('desk') ||
-                lc.includes('table') ||
-                lc.includes('computer') ||
-                lc.includes('keyboard')
-              ) {
-                child.visible = false
-                console.log('[Scene] hidden:', n)
+          // Hide massive monitor meshes that obstruct the default camera angle
+          root.traverse((child: any) => {
+            if (child.name === 'Plane004' || child.name === 'screenlight') {
+              if (child.isMesh) child.visible = false
+              if (child.children) {
+                child.children.forEach((c: any) => c.visible = false)
               }
+            }
+
+            if (child.isMesh && child.material) {
+              if (child.name === 'BODY.SHIRT') {
+                const newMat = child.material.clone()
+                newMat.color = new THREE.Color("#8B4513")
+                child.material = newMat
+              } else if (child.name === 'Pant') {
+                const newMat = child.material.clone()
+                newMat.color = new THREE.Color("#000000")
+                child.material = newMat
+              }
+              child.castShadow = true
+              child.receiveShadow = true
             }
           })
 
-          const box  = new THREE.Box3().setFromObject(root)
-          const size = new THREE.Vector3()
-          box.getSize(size)
-          root.scale.setScalar(1.6 / size.y)
-          root.position.set(0, 3.5, 0)
+          const footR = root.getObjectByName('footR')
+          if (footR) footR.position.y = 3.36
+          const footL = root.getObjectByName('footL')
+          if (footL) footL.position.y = 3.36
+
+          // Center the diorama fully in the viewport
+          root.position.set(0, 0, 0)
 
           scene.add(root)
           model = root
 
+          // Cache head bone once — never traverse in the render loop
+          headBone = findHeadBone(root)
+
           if (gltf.animations.length) {
             mixer = new THREE.AnimationMixer(root)
-            const clip = gltf.animations.find(a => /idle/i.test(a.name)) ?? gltf.animations[0]
-            mixer.clipAction(clip).play()
+            const headlessBones = ['spine006', 'head', 'neck']
+
+            // 1. Play the intro animation ONCE (clamp at end pose).
+            //    Never loop it — looping causes a snap every ~3s that looks like a "refresh".
+            const introClip = gltf.animations.find(a => /intro/i.test(a.name))
+            if (introClip) {
+              const filteredIntro = filterOutBoneTracks(introClip, headlessBones)
+              const introAction = mixer.clipAction(filteredIntro)
+              introAction.setLoop(THREE.LoopOnce, 1)
+              introAction.clampWhenFinished = true
+              introAction.play()
+            }
+
+            // 2. Loop the keyboard/typing animations (key1, key2, key5, key6).
+            //    These loop seamlessly and animate only the hands/arms.
+            const keyNames = ['key1', 'key2', 'key5', 'key6']
+            keyNames.forEach(name => {
+              const clip = gltf.animations.find(a => a.name === name)
+              if (clip && mixer) {
+                const filtered = filterOutBoneTracks(clip, headlessBones)
+                const action = mixer.clipAction(filtered)
+                action.timeScale = 1.2
+                action.play()
+              }
+            })
           }
 
-          wrapRef.current!.style.opacity = '1'
+          setLoaded(true)
+          if (wrapRef.current) wrapRef.current.style.opacity = '1'
           console.log('[Scene] loaded:', url)
           dispatchComplete()
         },
@@ -177,8 +215,9 @@ function SceneInner({ inline = false }: SceneInnerProps) {
         (err) => {
           if (simInterval) { clearInterval(simInterval); simInterval = null }
           console.warn('[Scene] failed:', url, String(err))
-          if (url === CHARACTER_URL) loadModel(FALLBACK_URL)
-          else dispatchComplete()
+          dispatchComplete()
+          setLoaded(true)
+          if (wrapRef.current) wrapRef.current.style.opacity = '1'
         }
       )
     }
@@ -208,7 +247,7 @@ function SceneInner({ inline = false }: SceneInnerProps) {
       if (!alive) return
       raf = requestAnimationFrame(tick)
       if (mixer) mixer.update(clock.getDelta())
-      if (model) applyHeadTracking(model, mouse)
+      if (headBone) applyHeadTracking(headBone, mouse)
       renderer.render(scene, camera)
     }
     tick()
@@ -220,7 +259,6 @@ function SceneInner({ inline = false }: SceneInnerProps) {
       window.removeEventListener('mousemove', onMouse)
       if (ro) ro.disconnect()
       else window.removeEventListener('resize', onResize)
-      dracoLoader.dispose()
       renderer.dispose()
       if (wrap.contains(canvas)) wrap.removeChild(canvas)
     }
@@ -239,22 +277,27 @@ function SceneInner({ inline = false }: SceneInnerProps) {
 
   const containerStyle: React.CSSProperties = inline
     ? {
-        position: 'relative',
-        width: '100%',
-        height: '100%',
-        overflow: 'hidden',
-        borderRadius: 'inherit',
-        opacity: 0,
-        transition: 'opacity 1s ease',
-      }
+      position: 'relative',
+      width: '100%',
+      height: '100%',
+      overflow: 'hidden',
+      borderRadius: 'inherit',
+      opacity: loaded ? 1 : 0,
+      transition: 'opacity 1s ease',
+      zIndex: 10,
+      willChange: 'transform',
+      transform: 'translateZ(0)',
+    }
     : {
-        position: 'fixed',
-        inset: 0,
-        zIndex: 2,
-        pointerEvents: 'none',
-        opacity: 0,
-        transition: 'opacity 1s ease',
-      }
+      position: 'fixed',
+      inset: 0,
+      zIndex: 2,
+      pointerEvents: 'none',
+      opacity: loaded ? 1 : 0,
+      transition: 'opacity 1s ease',
+      willChange: 'transform',
+      transform: 'translateZ(0)',
+    }
 
   return <div ref={wrapRef} style={containerStyle} />
 }

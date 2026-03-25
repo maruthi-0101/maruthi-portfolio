@@ -26,42 +26,13 @@ export default function HeroText() {
 
   return (
     <>
-      <style>{`
-        @keyframes heroFadeLeft {
-          from { opacity: 0; transform: translateX(-28px); }
-          to   { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes heroFadeRight {
-          from { opacity: 0; transform: translateX(28px); }
-          to   { opacity: 1; transform: translateX(0); }
-        }
-        .hero-left  { animation: heroFadeLeft  0.7s ease both; }
-        .hero-right { animation: heroFadeRight 0.7s ease 0.12s both; }
-
-        .role-line {
-          display: block;
-          font-size: clamp(2.4rem, 5.2vw, 5rem);
-          font-weight: 800;
-          letter-spacing: -2px;
-          line-height: 1.0;
-          text-transform: uppercase;
-          transition: opacity 0.42s ease, transform 0.42s ease;
-          will-change: opacity, transform;
-        }
-        .role-line.in  { opacity: 1; transform: translateY(0); }
-        .role-line.out { opacity: 0; transform: translateY(-18px); }
-
-        .role-line:nth-child(2) {
-          transition-delay: 0.06s;
-        }
-      `}</style>
 
       {/* LEFT: Name */}
       <div style={{
         position: 'fixed',
         left: '5vw',
         top: 0, bottom: 0,
-        zIndex: 5,
+        zIndex: 1,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
@@ -96,7 +67,7 @@ export default function HeroText() {
         position: 'fixed',
         right: '5vw',
         top: 0, bottom: 0,
-        zIndex: 5,
+        zIndex: 1,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-end',
