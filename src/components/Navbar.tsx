@@ -1,9 +1,10 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const links = ['ABOUT', 'WORK', 'CONTACT']
 
 export default function Navbar() {
   const navRef = useRef<HTMLElement>(null)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     const nav = navRef.current
@@ -13,46 +14,79 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [menuOpen])
+
   return (
-    <nav ref={navRef} style={{
-      position: 'fixed',
-      top: 0, left: 0, right: 0,
-      zIndex: 50,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      padding: '28px 40px',
-      animation: 'fadeInDown 0.5s ease 0s both',
-    }}>
-      <a href="#" style={{
-        fontSize: '22px',
-        fontWeight: 800,
-        letterSpacing: '1px',
-        color: '#fff',
-        textDecoration: 'none',
+    <>
+      <nav ref={navRef} style={{
+        position: 'fixed',
+        top: 0, left: 0, right: 0,
+        zIndex: 50,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '28px 40px',
+        animation: 'fadeInDown 0.5s ease 0s both',
       }}>
-        MS
-      </a>
+        <a href="#" style={{
+          fontSize: '22px',
+          fontWeight: 800,
+          letterSpacing: '1px',
+          color: '#fff',
+          textDecoration: 'none',
+        }}>
+          MS
+        </a>
 
-      <span style={{
-        fontSize: '13px',
-        color: '#8b9ab0',
-        letterSpacing: '0.5px',
-        position: 'absolute',
-        left: '50%',
-        transform: 'translateX(-50%)',
-      }}>
-        maruthisundar@gmail.com
-      </span>
+        {/* Center email — hidden on mobile via CSS */}
+        <span className="nav-center-email" style={{
+          fontSize: '13px',
+          color: '#8b9ab0',
+          letterSpacing: '0.5px',
+          position: 'absolute',
+          left: '50%',
+          transform: 'translateX(-50%)',
+        }}>
+          maruthisundar@gmail.com
+        </span>
 
-      <ul style={{ display: 'flex', gap: '36px', listStyle: 'none' }}>
-        {links.map(link => (
-          <li key={link} style={{ overflow: 'hidden', lineHeight: 1 }}>
-            <MarqueeLink label={link} />
-          </li>
-        ))}
-      </ul>
-    </nav>
+        {/* Desktop links — hidden on mobile via CSS */}
+        <ul className="nav-links-desktop" style={{ display: 'flex', gap: '36px', listStyle: 'none' }}>
+          {links.map(link => (
+            <li key={link} style={{ overflow: 'hidden', lineHeight: 1 }}>
+              <MarqueeLink label={link} />
+            </li>
+          ))}
+        </ul>
+
+        {/* Hamburger — shown on mobile via CSS */}
+        <button
+          className={`nav-hamburger ${menuOpen ? 'is-open' : ''}`}
+          onClick={() => setMenuOpen(o => !o)}
+          aria-label="Toggle menu"
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+      </nav>
+
+      {/* Mobile slide-in menu */}
+      <div className={`mobile-nav-menu ${menuOpen ? 'is-open' : ''}`}>
+        <ul>
+          {links.map(link => (
+            <li key={link}>
+              <a href={`#${link.toLowerCase()}`} onClick={() => setMenuOpen(false)}>
+                {link}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
   )
 }
 

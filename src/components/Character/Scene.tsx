@@ -299,7 +299,7 @@ function SceneInner({ inline = false }: SceneInnerProps) {
       transform: 'translateZ(0)',
     }
 
-  return <div ref={wrapRef} style={containerStyle} />
+  return <div ref={wrapRef} className="scene-container" style={containerStyle} />
 }
 
 interface SceneProps {

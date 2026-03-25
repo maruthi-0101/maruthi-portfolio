@@ -39,17 +39,7 @@ export default function SocialIcons() {
   ]
 
   return (
-    <aside style={{
-      position: 'fixed',
-      left: '28px',
-      top: '50%',
-      transform: 'translateY(-50%)',
-      zIndex: 10,
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '24px',
-      animation: 'fadeInLeft 0.5s ease 0.3s both',
-    }}>
+    <aside className="social-sidebar">
       {icons.map(({ label, href, svg }) => (
         <a
           key={label}

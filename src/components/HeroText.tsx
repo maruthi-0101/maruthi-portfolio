@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
 
 const ROLES = [
-  { line1: 'SOFTWARE',   line2: 'ENGINEER'  },
-  { line1: 'AI',         line2: 'ENGINEER'  },
+  { line1: 'SOFTWARE', line2: 'ENGINEER' },
+  { line1: 'AI', line2: 'ENGINEER' },
   { line1: 'FULL-STACK', line2: 'DEVELOPER' },
 ]
 
 export default function HeroText() {
-  const [index, setIndex]     = useState(0)
-  const [phase, setPhase]     = useState<'in' | 'out'>('in')
+  const [index, setIndex] = useState(0)
+  const [phase, setPhase] = useState<'in' | 'out'>('in')
 
   useEffect(() => {
     const cycle = setInterval(() => {
@@ -26,19 +26,21 @@ export default function HeroText() {
 
   return (
     <>
+      {/* ── Mobile only: stacked bottom panel (display:none on desktop) ── */}
+      <div className="hero-mobile-panel">
+        <p className="hero-mobile-greeting">Hello! I'm</p>
+        <h1 className="hero-mobile-name">Maruthi<br />Sundar</h1>
+        <p className="hero-mobile-iam">I am a</p>
+        <span className={`role-line hero-mobile-role ${phase}`} style={{ color: '#ffffff' }}>
+          {role.line1}
+        </span>
+        <span className={`role-line hero-mobile-role ${phase}`} style={{ color: '#5eead4' }}>
+          {role.line2}
+        </span>
+      </div>
 
-      {/* LEFT: Name */}
-      <div style={{
-        position: 'fixed',
-        left: '5vw',
-        top: 0, bottom: 0,
-        zIndex: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-        pointerEvents: 'none',
-      }}>
+      {/* ── Desktop: LEFT panel — name (className replaces inline styles) ── */}
+      <div className="hero-desktop-left">
         <div className="hero-left">
           <p style={{
             fontSize: '1.15rem',
@@ -62,19 +64,8 @@ export default function HeroText() {
         </div>
       </div>
 
-      {/* RIGHT: Cycling role */}
-      <div style={{
-        position: 'fixed',
-        right: '5vw',
-        top: 0, bottom: 0,
-        zIndex: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-end',
-        justifyContent: 'center',
-        pointerEvents: 'none',
-        textAlign: 'right',
-      }}>
+      {/* ── Desktop: RIGHT panel — role (className replaces inline styles) ── */}
+      <div className="hero-desktop-right">
         <div className="hero-right">
           <p style={{
             fontSize: '1.1rem',

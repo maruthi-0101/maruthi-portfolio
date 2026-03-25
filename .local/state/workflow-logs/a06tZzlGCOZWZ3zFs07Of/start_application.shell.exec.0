@@ -1,0 +1,704 @@
+[1G[0K⠙[1G[0K
+> maruthi-portfolio@1.0.0 dev
+> vite
+
+[1G[0K⠙[1G[0K
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J
+  [32m[1mVITE[22m v5.4.8[39m  [2mready in [0m[1m388[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.31.73.130:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:01:13 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/About.tsx[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:01:37 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:09:29 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/SocialIcons.tsx[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:09:34 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/SocialIcons.tsx[22m [33m(x2)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:09:40 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/SocialIcons.tsx[22m [33m(x3)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:09:45 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/SocialIcons.tsx[22m [33m(x4)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:09:52 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/About.tsx[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:09:58 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/About.tsx[22m [33m(x2)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:10:10 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Contact.tsx[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:17:20 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Work.tsx[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:17:51 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:26:23 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Character/Scene.tsx[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:26:33 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/About.tsx[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:26:45 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/About.tsx[22m [33m(x2)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:27:08 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:41:36 PM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/main.tsx[22m
+[2m1:41:37 PM[22m [36m[1m[vite][22m[39m [32m✨ new dependencies optimized: [33mreact-router-dom[32m[39m
+[2m1:41:37 PM[22m [36m[1m[vite][22m[39m [32m✨ optimized dependencies changed. reloading[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:41:46 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:41:46 PM[22m [31m[1m[vite][22m[39m [31mInternal server error: Failed to resolve import "./pages/AllProjects" from "src/App.tsx". Does the file exist?[39m
+  Plugin: [35mvite:import-analysis[39m
+  File: [36m/home/runner/workspace/src/App.tsx[39m:10:24
+[33m  24 |  import Work from "./components/Work";
+  25 |  import Contact from "./components/Contact";
+  26 |  import AllProjects from "./pages/AllProjects";
+     |                           ^
+  27 |  function Home() {
+  28 |    return /* @__PURE__ */ jsxDEV(Fragment, { children: [[39m
+      at TransformPluginContext._formatError (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:49193:41)
+      at TransformPluginContext.error (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:49188:16)
+      at normalizeUrl (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:63984:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+      at async file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:64116:39
+      at async Promise.all (index 12)
+      at async TransformPluginContext.transform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:64043:7)
+      at async PluginContainer.transform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:49034:18)
+      at async loadAndTransform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:51867:27)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:41:46 PM[22m [31m[1m[vite][22m[39m [31mInternal server error: Failed to resolve import "./pages/AllProjects" from "src/App.tsx". Does the file exist?[39m
+  Plugin: [35mvite:import-analysis[39m
+  File: [36m/home/runner/workspace/src/App.tsx[39m:10:24
+[33m  24 |  import Work from "./components/Work";
+  25 |  import Contact from "./components/Contact";
+  26 |  import AllProjects from "./pages/AllProjects";
+     |                           ^
+  27 |  function Home() {
+  28 |    return /* @__PURE__ */ jsxDEV(Fragment, { children: [[39m
+      at TransformPluginContext._formatError (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:49193:41)
+      at TransformPluginContext.error (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:49188:16)
+      at normalizeUrl (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:63984:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+      at async file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:64116:39
+      at async Promise.all (index 12)
+      at async TransformPluginContext.transform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:64043:7)
+      at async PluginContainer.transform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:49034:18)
+      at async loadAndTransform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:51867:27) [33m(x2)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:41:46 PM[22m [31m[1m[vite][22m[39m [31mInternal server error: Failed to resolve import "./pages/AllProjects" from "src/App.tsx". Does the file exist?[39m
+  Plugin: [35mvite:import-analysis[39m
+  File: [36m/home/runner/workspace/src/App.tsx[39m:10:24
+[33m  24 |  import Work from "./components/Work";
+  25 |  import Contact from "./components/Contact";
+  26 |  import AllProjects from "./pages/AllProjects";
+     |                           ^
+  27 |  function Home() {
+  28 |    return /* @__PURE__ */ jsxDEV(Fragment, { children: [[39m
+      at TransformPluginContext._formatError (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:49193:41)
+      at TransformPluginContext.error (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:49188:16)
+      at normalizeUrl (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:63984:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+      at async file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:64116:39
+      at async Promise.all (index 12)
+      at async TransformPluginContext.transform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:64043:7)
+      at async PluginContainer.transform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:49034:18)
+      at async loadAndTransform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:51867:27) [33m(x3)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:41:46 PM[22m [31m[1m[vite][22m[39m [31mInternal server error: Failed to resolve import "./pages/AllProjects" from "src/App.tsx". Does the file exist?[39m
+  Plugin: [35mvite:import-analysis[39m
+  File: [36m/home/runner/workspace/src/App.tsx[39m:10:24
+[33m  24 |  import Work from "./components/Work";
+  25 |  import Contact from "./components/Contact";
+  26 |  import AllProjects from "./pages/AllProjects";
+     |                           ^
+  27 |  function Home() {
+  28 |    return /* @__PURE__ */ jsxDEV(Fragment, { children: [[39m
+      at TransformPluginContext._formatError (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:49193:41)
+      at TransformPluginContext.error (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:49188:16)
+      at normalizeUrl (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:63984:23)
+      at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+      at async file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:64116:39
+      at async Promise.all (index 12)
+      at async TransformPluginContext.transform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:64043:7)
+      at async PluginContainer.transform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:49034:18)
+      at async loadAndTransform (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:51867:27)
+      at async viteTransformMiddleware (file:///home/runner/workspace/node_modules/vite/dist/node/chunks/dep-CDnG8rE7.js:61824:24)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:42:29 PM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/pages/AllProjects.tsx[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:42:38 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Work.tsx[22m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:42:45 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/Work.tsx[22m [33m(x2)[39m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[1;1H[0J[2m1:43:13 PM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m

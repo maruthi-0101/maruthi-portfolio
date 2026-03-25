@@ -619,7 +619,6 @@ body {
   border-top: 1px solid rgba(255, 255, 255, 0.04);
   background: #060c16;
 }
-.work-inner { }
 
 .work-header {
   margin-bottom: 3.5rem;
@@ -1010,4 +1009,200 @@ body {
 .role-line.in  { opacity: 1; transform: translateY(0); }
 .role-line.out { opacity: 0; transform: translateY(-18px); }
 .role-line:nth-child(2) { transition-delay: 0.06s; }
+
+/* =============================================
+   HERO DESKTOP PANELS
+   (same values as previous inline styles, now
+   in CSS so media queries can override them)
+============================================= */
+.hero-desktop-left {
+  position: fixed;
+  left: 5vw;
+  top: 0; bottom: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  pointer-events: none;
+}
+.hero-desktop-right {
+  position: fixed;
+  right: 5vw;
+  top: 0; bottom: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: none;
+  text-align: right;
+}
+/* Mobile panel — hidden on desktop */
+.hero-mobile-panel { display: none; }
+
+/* =============================================
+   NAVBAR EXTRAS
+============================================= */
+nav {
+  transition: padding 0.3s ease, background 0.3s ease, backdrop-filter 0.3s ease;
+}
+nav.scrolled {
+  background: rgba(5, 10, 18, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+}
+
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 60;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.nav-hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.is-open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile full-screen overlay menu — hidden on desktop */
+.mobile-nav-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  background: rgba(5, 10, 18, 0.97);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.mobile-nav-menu.is-open {
+  opacity: 1;
+  pointer-events: all;
+}
+.mobile-nav-menu ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+}
+.mobile-nav-menu a {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: #ffffff;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.25s;
+}
+.mobile-nav-menu a:hover { color: #5eead4; }
+
+/* =============================================
+   SOCIAL SIDEBAR
+============================================= */
+.social-sidebar {
+  position: fixed;
+  left: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  animation: fadeInLeft 0.5s ease 0.3s both;
+}
+
+/* =============================================
+   MOBILE BREAKPOINT  ≤ 768px
+============================================= */
+@media (max-width: 768px) {
+  /* Navbar */
+  .nav-center-email  { display: none !important; }
+  .nav-links-desktop { display: none !important; }
+  .nav-hamburger     { display: flex; }
+  .mobile-nav-menu   { display: flex; }
+
+  /* Hide Social Sidebar on mobile (links exist in Contact section) */
+  .social-sidebar { display: none !important; }
+
+  /* Hero panels */
+  .hero-desktop-left  { display: none; }
+  .hero-desktop-right { display: none; }
+  
+  /* Hide 3D Avatar and background blobs entirely on mobile */
+  .scene-container, .bg-blobs {
+    display: none !important;
+  }
+
+  /* Reset hero container so it doesn't push the absolute panels around */
+  .hero {
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Mobile stacked hero - vertically centered since avatar is gone */
+  .hero-mobile-panel {
+    display: flex;
+    position: absolute; /* absolute to .hero instead of fixed to screen */
+    inset: 0;
+    z-index: 10; /* high z-index to stay above everything */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    text-align: center;
+  }
+  .hero-mobile-greeting {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #5eead4;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+  }
+  .hero-mobile-name {
+    font-size: clamp(3rem, 12vw, 4.5rem);
+    font-weight: 800;
+    letter-spacing: -2px;
+    line-height: 0.95;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .hero-mobile-iam {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #8b9ab0;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .hero-mobile-role {
+    font-size: clamp(1.8rem, 8vw, 2.5rem) !important;
+  }
+
+  /* Hide resume button — too cluttered on mobile */
+  .resume-btn { display: none; }
+
+  /* Navbar padding tighter on mobile */
+  nav[style] { padding: 18px 20px !important; }
+
+  /* About Section Profile (3D character) — hidden on mobile */
+  .about-profile { display: none !important; }
+}
+
 
